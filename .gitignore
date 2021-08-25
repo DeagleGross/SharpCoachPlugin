@@ -3,7 +3,6 @@
 [Oo]bj/
 build
 output
-packages
 .gradle
 .tmp
 
@@ -14,7 +13,6 @@ packages
 *.cache
 
 # IDEs
-**/.idea/**
 /.idea/*.iml
 /.idea/*.xml
 /.idea/.idea.*/*.iml

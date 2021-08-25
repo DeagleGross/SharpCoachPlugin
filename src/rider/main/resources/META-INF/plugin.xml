@@ -20,6 +20,9 @@
     <action id="SampleAction" class="com.jetbrains.rider.plugins.sharpcoachplugin.SampleAction"
             text="Do Something" description="Do Something Description">
     </action>
+    
+    <action id="MapModelsAction" class="com.jetbrains.rider.plugins.sharpcoachplugin.MapModelsAction"
+            text="Map models internals" description="Map models internals"/>
   </actions>
 
 </idea-plugin>

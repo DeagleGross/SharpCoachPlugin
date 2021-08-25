@@ -11,7 +11,6 @@ using NUnit.Framework;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Tests
 {
-
     [ZoneDefinition]
     public class SharpCoachPluginTestEnvironmentZone : ITestsEnvZone, IRequire<PsiFeatureTestZone>, IRequire<ISharpCoachPluginZone> { }
 

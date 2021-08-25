@@ -15,7 +15,12 @@
 
   <ItemGroup>
     <Compile Remove="test/**/*" />
+    <Compile Include="test\src\Actions\MapModelsActionTests.cs" />
     <None Include="test/**/*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="test\data\Intentions\ContextActions" />
   </ItemGroup>
 
 </Project>

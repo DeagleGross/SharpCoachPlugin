@@ -1,0 +1,24 @@
+using System;
+
+public class MapModelsActionTestText
+{
+    public static UserResponse ToResponse(UserRequest request) => new()
+    {
+        Id = request.Id,
+        Name = request.Name
+    };
+}
+
+public class UserRequest
+{
+    public long Id { get; set; }
+    
+    public string Name { get; set; }
+}
+
+public class UserResponse
+{
+    public long Id { get; set; }
+    
+    public string Name { get; set; }
+}

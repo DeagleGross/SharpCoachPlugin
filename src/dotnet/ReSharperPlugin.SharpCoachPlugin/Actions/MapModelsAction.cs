@@ -2,9 +2,8 @@ using System;
 using JetBrains.Application.Progress;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.ContextActions;
-using JetBrains.ReSharper.Feature.Services.CSharp.Util;
+using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
-using JetBrains.ReSharper.Psi.CSharp.Util;
 using JetBrains.TextControl;
 using JetBrains.Util;
 using ReSharperPlugin.SharpCoachPlugin.Core.Processors;
@@ -15,17 +14,18 @@ namespace DefaultNamespace
     [ContextAction(Name = "MapModelsAction", Description = "Map internals of models", Group = "C#", Disabled = false, Priority = 2)]
     public class MapModelsAction : ContextActionBase
     {
-        private readonly IMethodDeclaration _initialMethodDeclaration;
-        
         private readonly MethodInfoProvider _methodInfoProvider;
-        private MappingProcessor _mappingProcessor;
+        private ClassInfoProvider _toType;
+        private ClassInfoProvider _fromType;
+        
+        private ClassesMappingProcessor _classesMappingProcessor;
 
         public override string Text => "Map internals of models";
 
         public MapModelsAction(LanguageIndependentContextActionDataProvider  dataProvider)
         {
-            _initialMethodDeclaration = dataProvider.GetSelectedElement<IMethodDeclaration>();
-            _methodInfoProvider = new MethodInfoProvider(_initialMethodDeclaration);
+            var initialMethodDeclaration = dataProvider.GetSelectedElement<IMethodDeclaration>();
+            _methodInfoProvider = new MethodInfoProvider(initialMethodDeclaration);
         }
         
         public override bool IsAvailable(IUserDataHolder cache)
@@ -33,23 +33,42 @@ namespace DefaultNamespace
             var methodHasSingleArgument = _methodInfoProvider.HasSingleArgument;
             var methodReturnTypeIsOfReferenceType = _methodInfoProvider.ReturnsReferenceType;
 
-            return methodHasSingleArgument && methodReturnTypeIsOfReferenceType;
+            if (!(methodHasSingleArgument && methodReturnTypeIsOfReferenceType))
+            {
+                return false;
+            }
+            
+            _toType = _methodInfoProvider.GetReturnTypeDeclaration();
+            _fromType = _methodInfoProvider.GetArgumentTypeDeclaration(0);
+
+            return _toType.HasValidModelInfo && _fromType.HasValidModelInfo;
         }
 
         protected override Action<ITextControl> ExecutePsiTransaction(ISolution solution, IProgressIndicator progress)
         {
-            if (_mappingProcessor is null)
-            {
-                var model1 = _methodInfoProvider.GetReturnTypeDeclaration();
-                var model2 = _methodInfoProvider.GetArgumentTypeDeclaration(0);
-                
-                _mappingProcessor = new MappingProcessor(model1, model2);
-            }
-
-            // TODO set real body of method
-            _initialMethodDeclaration.SetBody(null);
+            var methodDeclaration = _methodInfoProvider.MethodDeclaration;
+            var methodBody = PrepareReturnMethodBodyForMapping();
+            
+            _classesMappingProcessor ??= new ClassesMappingProcessor(_fromType, _toType, methodBody);
+            
+            var methodMappingCode = _classesMappingProcessor.BuildMappingCode();
+            methodDeclaration.SetBody(methodMappingCode);
 
             return null;
+        }
+
+        private IBlock PrepareReturnMethodBodyForMapping()
+        {
+            var methodDeclaration = _methodInfoProvider.MethodDeclaration;
+            methodDeclaration.RemoveBodyStatements();
+            
+            var methodBody = methodDeclaration.Body;
+            var factory = CSharpElementFactory.GetInstance(methodBody);
+
+            var returnStatement =  factory.CreateStatement($"return new {_toType.ClassTypeName} {{");
+            methodBody.AddStatementAfter(returnStatement, methodBody);
+
+            return methodBody;
         }
     }
 }

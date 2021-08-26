@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 public class MapModelsActionTestText
 {
-    public static UserResponse ToResponse{caret}(UserRequest request)
+    public static UserResponse ToResponse{caret}(UserRequest request); return new UserResponse {
 }
 
 public class UserRequest

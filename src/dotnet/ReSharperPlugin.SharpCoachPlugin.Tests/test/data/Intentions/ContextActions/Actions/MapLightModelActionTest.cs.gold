@@ -2,7 +2,7 @@ using System;
 
 public class MapModelsActionTestText
 {
-    public static UserResponse ToResponse(UserRequest request) => new()
+    public static UserResponse ToResponse{caret}(UserRequest request) => new()
     {
         Id = request.Id,
         Name = request.Name

@@ -5,36 +5,46 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
 {
     public class MethodInfoProvider
     {
-        private readonly IMethodDeclaration _methodDeclaration;
+        public IMethodDeclaration MethodDeclaration { get; }
 
         public MethodInfoProvider(IMethodDeclaration methodDeclaration)
         {
-            _methodDeclaration = methodDeclaration;
+            MethodDeclaration = methodDeclaration;
         }
 
         public bool HasSingleArgument
         {
             get
             {
-                if (_methodDeclaration is null) return false;
-                if (_methodDeclaration.Params.FirstChild is null) return false;
-                return _methodDeclaration.Params.FirstChild.NextSibling is null && 
-                       _methodDeclaration.Params.FirstChild.PrevSibling is null;
+                if (MethodDeclaration is null) return false;
+                if (MethodDeclaration.Params.FirstChild is null) return false;
+                return MethodDeclaration.Params.FirstChild.NextSibling is null && 
+                       MethodDeclaration.Params.FirstChild.PrevSibling is null;
             }
         }
 
-        public bool ReturnsReferenceType => _methodDeclaration.Type.Classify == TypeClassification.REFERENCE_TYPE;
+        public bool ReturnsReferenceType => MethodDeclaration.Type.Classify == TypeClassification.REFERENCE_TYPE;
 
-        public ModelInfoProvider GetReturnTypeDeclaration()
+        public ClassInfoProvider GetReturnTypeDeclaration()
         {
-            // TODO extract information about return model
-            return new ModelInfoProvider();
+            var returnTypeReference = MethodDeclaration.TypeUsage?.LastChild as IReferenceName;
+            var classDeclaration = returnTypeReference?.Reference.Resolve();
+            
+            return classDeclaration?.IsValid() == true 
+                ? new ClassInfoProvider(classDeclaration.DeclaredElement as IClass) 
+                : new ClassInfoProvider(null);
         }
         
-        public ModelInfoProvider GetArgumentTypeDeclaration(int index)
+        public ClassInfoProvider GetArgumentTypeDeclaration(int index)
         {
-            // TODO extract information about parameter model
-            return new ModelInfoProvider();
+            var argumentTreeNode = MethodDeclaration.Params.FindNodeAt(new TreeTextRange(new TreeOffset(index)));
+            var argumentReferenceName = argumentTreeNode?.Parent as IReferenceName;
+            
+            var classDeclaration = argumentReferenceName?.Reference.Resolve();
+            
+            return classDeclaration?.IsValid() == true 
+                ? new ClassInfoProvider(classDeclaration.DeclaredElement as IClass) 
+                : new ClassInfoProvider(null);
         }
     }
 }

@@ -32,15 +32,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                 // same type and name
                 if (toClassProperties.ContainsKey(propertyDescriptor))
                 {
-                    // simple types
-                    if (!propertyDescriptor.Type.IsReferenceType())
-                    {
-                        _mappingCodeBuilder.AddSimplePropertyBinding(property.ShortName);
-                    }
-                    else
-                    {
-                        
-                    }
+                    _mappingCodeBuilder.AddSimplePropertyBinding(property.ShortName);
                 }
                 
                 // same name only

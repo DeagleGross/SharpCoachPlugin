@@ -5,22 +5,10 @@ namespace DefaultNamespace
 {
     public static class MethodDeclarationHelpers
     {
-        public static void RemoveBodyStatements(this IMethodDeclaration methodDeclaration)
+        public static IBlock GetEmptyMethodBody(this IMethodDeclaration methodDeclaration)
         {
-            var methodBody = methodDeclaration.Body;
-
-            if (methodBody is null)
-            {
-                // create method body
-                var factory = CSharpElementFactory.GetInstance(methodDeclaration);
-                methodBody = factory.CreateBlock(string.Empty);
-            }
-            else
-            {
-                methodBody.RemoveOrReplaceByEmptyStatement();
-            }
-            
-            methodDeclaration.SetBody(methodBody);
+            var factory = CSharpElementFactory.GetInstance(methodDeclaration);
+            return factory.CreateEmptyBlock();
         }
     }
 }

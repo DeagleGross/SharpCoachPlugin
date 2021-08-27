@@ -13,8 +13,7 @@ namespace Mapping
         
         public static UserResponse Convert(UserRequest request)
         {
-            Console.WriteLine("hello");
-            return null;
+            return new UserResponse() { Id = request.Id, IsActive = request.IsActive, Role = request.Role, };
         }
     }
 }

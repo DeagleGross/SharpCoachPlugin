@@ -14,18 +14,28 @@ namespace DefaultNamespace
     [ContextAction(Name = "MapModelsAction", Description = "Map internals of models", Group = "C#", Disabled = false, Priority = 2)]
     public class MapModelsAction : ContextActionBase
     {
+        private const string MethodReturnFormat = @"
+        {{ 
+            return new {0}() 
+            {{ 
+                {1} 
+            }};
+        }}"; 
+        
+        public override string Text => "Map internals of models";
+        
+        private readonly IMethodDeclaration _methodDeclaration;
         private readonly MethodInfoProvider _methodInfoProvider;
-        private ClassInfoProvider _toType;
-        private ClassInfoProvider _fromType;
+        
+        private ReferenceTypeInfoProvider _toType;
+        private ReferenceTypeInfoProvider _fromType;
         
         private ClassesMappingProcessor _classesMappingProcessor;
 
-        public override string Text => "Map internals of models";
-
         public MapModelsAction(LanguageIndependentContextActionDataProvider  dataProvider)
         {
-            var initialMethodDeclaration = dataProvider.GetSelectedElement<IMethodDeclaration>();
-            _methodInfoProvider = new MethodInfoProvider(initialMethodDeclaration);
+            _methodDeclaration = dataProvider.GetSelectedElement<IMethodDeclaration>();
+            _methodInfoProvider = new MethodInfoProvider(_methodDeclaration);
         }
         
         public override bool IsAvailable(IUserDataHolder cache)
@@ -46,29 +56,22 @@ namespace DefaultNamespace
 
         protected override Action<ITextControl> ExecutePsiTransaction(ISolution solution, IProgressIndicator progress)
         {
-            var methodDeclaration = _methodInfoProvider.MethodDeclaration;
-            var methodBody = PrepareReturnMethodBodyForMapping();
-            
-            _classesMappingProcessor ??= new ClassesMappingProcessor(_fromType, _toType, methodBody);
+            _classesMappingProcessor ??= new ClassesMappingProcessor(_fromType, _toType);
             
             var methodMappingCode = _classesMappingProcessor.BuildMappingCode();
-            methodDeclaration.SetBody(methodMappingCode);
+            var mappingMethodBody = EmbedMappingCodeToMethodBody(methodMappingCode);
+            
+            _methodDeclaration.SetCodeBody(mappingMethodBody);
 
             return null;
         }
 
-        private IBlock PrepareReturnMethodBodyForMapping()
+        private ICSharpStatement EmbedMappingCodeToMethodBody(string internalMappingCode)
         {
-            var methodDeclaration = _methodInfoProvider.MethodDeclaration;
-            methodDeclaration.RemoveBodyStatements();
-            
-            var methodBody = methodDeclaration.Body;
+            var methodBody = _methodDeclaration.Body ?? _methodDeclaration.GetEmptyMethodBody();
             var factory = CSharpElementFactory.GetInstance(methodBody);
 
-            var returnStatement =  factory.CreateStatement($"return new {_toType.ClassTypeName} {{");
-            methodBody.AddStatementAfter(returnStatement, methodBody);
-
-            return methodBody;
+            return factory.CreateStatement(string.Format(MethodReturnFormat, _toType.ClassTypeName, internalMappingCode));
         }
     }
 }

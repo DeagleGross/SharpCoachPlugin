@@ -1,24 +1,25 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DefaultNamespace;
-using JetBrains.DataFlow;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
 {
-    public class ClassInfoProvider
+    public class ReferenceTypeInfoProvider
     {
         private readonly IClass _classInfo;
+        
+        public string VariableName { get; }
 
         public bool HasValidModelInfo => _classInfo is not null;
 
         public string ClassTypeName => _classInfo.ShortName;
-        
-        public ClassInfoProvider(IClass classInfo)
+
+        public ReferenceTypeInfoProvider(IClass classInfo, string variableName = null)
         {
             _classInfo = classInfo;
+            VariableName = !string.IsNullOrEmpty(variableName) ? variableName : string.Empty;
         }
 
         public IReadOnlyDictionary<PropertyDescriptor, IProperty> GetPropertiesSet(AccessRights accessRights = AccessRights.PUBLIC) 

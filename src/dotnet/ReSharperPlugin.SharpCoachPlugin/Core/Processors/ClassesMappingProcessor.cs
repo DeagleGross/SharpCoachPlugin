@@ -1,6 +1,6 @@
+using System.Text;
 using DefaultNamespace;
 using JetBrains.Collections;
-using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Util;
 using ReSharperPlugin.SharpCoachPlugin.Core.Providers;
 
@@ -8,20 +8,20 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
 {
     public class ClassesMappingProcessor
     {
-        private readonly CodeBlockBuilder _codeBlockBuilder;
+        private readonly MappingCodeBuilder _mappingCodeBuilder;
         
-        private readonly ClassInfoProvider _fromType;
-        private readonly ClassInfoProvider _toType;
+        private readonly ReferenceTypeInfoProvider _fromType;
+        private readonly ReferenceTypeInfoProvider _toType;
 
-        public ClassesMappingProcessor(ClassInfoProvider fromType, ClassInfoProvider toType, IBlock methodBody)
+        public ClassesMappingProcessor(ReferenceTypeInfoProvider fromType, ReferenceTypeInfoProvider toType)
         {
             _fromType = fromType;
             _toType = toType;
 
-            _codeBlockBuilder = new CodeBlockBuilder(methodBody);
+            _mappingCodeBuilder = new MappingCodeBuilder(_fromType.VariableName);
         }
 
-        public IBlock BuildMappingCode()
+        public string BuildMappingCode()
         {
             var fromClassProperties = _fromType.GetPropertiesSet();
             var toClassProperties = _toType.GetPropertiesSet();
@@ -35,7 +35,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                     // simple types
                     if (!propertyDescriptor.Type.IsReferenceType())
                     {
-                        
+                        _mappingCodeBuilder.AddSimplePropertyBinding(property.ShortName);
                     }
                     else
                     {
@@ -46,7 +46,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                 // same name only
             }
 
-            return null;
+            return _mappingCodeBuilder.Result;
         }
     }
 }

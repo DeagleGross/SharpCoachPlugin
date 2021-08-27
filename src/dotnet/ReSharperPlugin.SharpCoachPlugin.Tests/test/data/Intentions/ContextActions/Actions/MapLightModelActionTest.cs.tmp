@@ -2,7 +2,7 @@
 
 public class MapModelsActionTestText
 {
-    public static UserResponse ToResponse{caret}(UserRequest request); return new UserResponse {
+    public static UserResponse ToResponse{caret}(UserRequest request)
 }
 
 public class UserRequest

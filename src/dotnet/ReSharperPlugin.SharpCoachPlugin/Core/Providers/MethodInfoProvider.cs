@@ -1,50 +1,53 @@
+using System.Linq;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Tree;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
 {
     public class MethodInfoProvider
     {
-        public IMethodDeclaration MethodDeclaration { get; }
+        private readonly IMethodDeclaration _methodDeclaration;
 
         public MethodInfoProvider(IMethodDeclaration methodDeclaration)
         {
-            MethodDeclaration = methodDeclaration;
+            _methodDeclaration = methodDeclaration;
         }
 
         public bool HasSingleArgument
         {
             get
             {
-                if (MethodDeclaration is null) return false;
-                if (MethodDeclaration.Params.FirstChild is null) return false;
-                return MethodDeclaration.Params.FirstChild.NextSibling is null && 
-                       MethodDeclaration.Params.FirstChild.PrevSibling is null;
+                if (_methodDeclaration is null) return false;
+                if (_methodDeclaration.Params.FirstChild is null) return false;
+                return _methodDeclaration.Params.FirstChild.NextSibling is null && 
+                       _methodDeclaration.Params.FirstChild.PrevSibling is null;
             }
         }
 
-        public bool ReturnsReferenceType => MethodDeclaration.Type.Classify == TypeClassification.REFERENCE_TYPE;
+        public bool ReturnsReferenceType => _methodDeclaration.Type.Classify == TypeClassification.REFERENCE_TYPE;
 
-        public ClassInfoProvider GetReturnTypeDeclaration()
+        public ReferenceTypeInfoProvider GetReturnTypeDeclaration()
         {
-            var returnTypeReference = MethodDeclaration.TypeUsage?.LastChild as IReferenceName;
+            var returnTypeReference = _methodDeclaration.TypeUsage?.LastChild as IReferenceName;
             var classDeclaration = returnTypeReference?.Reference.Resolve();
             
             return classDeclaration?.IsValid() == true 
-                ? new ClassInfoProvider(classDeclaration.DeclaredElement as IClass) 
-                : new ClassInfoProvider(null);
+                ? new ReferenceTypeInfoProvider(classDeclaration.DeclaredElement as IClass) 
+                : new ReferenceTypeInfoProvider(null);
         }
         
-        public ClassInfoProvider GetArgumentTypeDeclaration(int index)
+        public ReferenceTypeInfoProvider GetArgumentTypeDeclaration(int index)
         {
-            var argumentTreeNode = MethodDeclaration.Params.FindNodeAt(new TreeTextRange(new TreeOffset(index)));
-            var argumentReferenceName = argumentTreeNode?.Parent as IReferenceName;
-            
+            var argument = _methodDeclaration.Params.FindNodeAt(new TreeTextRange(new TreeOffset(index)));
+            var argumentReferenceName = argument?.Parent as IReferenceName;
+
             var classDeclaration = argumentReferenceName?.Reference.Resolve();
+            var parameter = _methodDeclaration.Params.Children().ElementAt(index) as IParameterDeclaration;
             
             return classDeclaration?.IsValid() == true 
-                ? new ClassInfoProvider(classDeclaration.DeclaredElement as IClass) 
-                : new ClassInfoProvider(null);
+                ? new ReferenceTypeInfoProvider(classDeclaration.DeclaredElement as IClass, parameter?.DeclaredName) 
+                : new ReferenceTypeInfoProvider(null, parameter?.DeclaredName);
         }
     }
 }

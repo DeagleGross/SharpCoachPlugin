@@ -13,7 +13,14 @@ namespace Mapping
         
         public static UserResponse Convert(UserRequest request)
         {
-            return new UserResponse() { Id = request.Id, IsActive = request.IsActive, Role = request.Role, };
+            return new UserResponse()
+            {
+                Id = request.Id,
+                Name = request.Name,
+                IsActive = request.IsActive,
+                Role = request.Role,
+                ParentIds = request.ParentIds,
+            };
         }
     }
 }

@@ -16,7 +16,7 @@ namespace DefaultNamespace
 
         #region Equality Members
 
-        protected bool Equals(PropertyDescriptor other)
+        private bool Equals(PropertyDescriptor other)
         {
             return Equals(Type, other.Type) && Name == other.Name;
         }

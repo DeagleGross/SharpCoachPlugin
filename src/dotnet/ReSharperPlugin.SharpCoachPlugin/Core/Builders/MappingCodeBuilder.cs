@@ -1,5 +1,4 @@
 using System.Text;
-using JetBrains.ReSharper.Features.Inspections.Resources;
 
 namespace DefaultNamespace
 {

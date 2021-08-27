@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using DefaultNamespace;
 using JetBrains.ReSharper.Psi;
-using JetBrains.ReSharper.Psi.CSharp.Tree;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
 {
@@ -22,9 +20,9 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
             VariableName = !string.IsNullOrEmpty(variableName) ? variableName : string.Empty;
         }
 
-        public IReadOnlyDictionary<PropertyDescriptor, IProperty> GetPropertiesSet(AccessRights accessRights = AccessRights.PUBLIC) 
+        public IReadOnlyDictionary<string, IProperty> GetPropertyNameInfoMap(AccessRights accessRights = AccessRights.PUBLIC) 
             => _classInfo.Properties
             .Where(x => x.GetAccessRights() == accessRights)
-            .ToDictionary(property => new PropertyDescriptor(property.Type, property.ShortName), property => property);
+            .ToDictionary(property => property.ShortName, property => property);
     }
 }

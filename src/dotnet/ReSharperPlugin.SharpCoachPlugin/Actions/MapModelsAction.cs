@@ -27,8 +27,8 @@ namespace DefaultNamespace
         private readonly IMethodDeclaration _methodDeclaration;
         private readonly MethodInfoProvider _methodInfoProvider;
         
-        private ReferenceTypeInfoProvider _toType;
-        private ReferenceTypeInfoProvider _fromType;
+        private ClassTypeInfoProvider _toClassType;
+        private ClassTypeInfoProvider _fromClassType;
         
         private ClassesMappingProcessor _classesMappingProcessor;
 
@@ -48,15 +48,15 @@ namespace DefaultNamespace
                 return false;
             }
             
-            _toType = _methodInfoProvider.GetReturnTypeDeclaration();
-            _fromType = _methodInfoProvider.GetArgumentTypeDeclaration(0);
+            _toClassType = _methodInfoProvider.GetReturnTypeDeclaration();
+            _fromClassType = _methodInfoProvider.GetArgumentTypeDeclaration(0);
 
-            return _toType.HasValidModelInfo && _fromType.HasValidModelInfo;
+            return _toClassType.HasValidModelInfo && _fromClassType.HasValidModelInfo;
         }
 
         protected override Action<ITextControl> ExecutePsiTransaction(ISolution solution, IProgressIndicator progress)
         {
-            _classesMappingProcessor ??= new ClassesMappingProcessor(_fromType, _toType);
+            _classesMappingProcessor ??= new ClassesMappingProcessor(_fromClassType, _toClassType);
             
             var methodMappingCode = _classesMappingProcessor.BuildMappingCode();
             var mappingMethodBody = EmbedMappingCodeToMethodBody(methodMappingCode);
@@ -71,7 +71,7 @@ namespace DefaultNamespace
             var methodBody = _methodDeclaration.Body ?? _methodDeclaration.GetEmptyMethodBody();
             var factory = CSharpElementFactory.GetInstance(methodBody);
 
-            return factory.CreateStatement(string.Format(MethodReturnFormat, _toType.ClassTypeName, internalMappingCode));
+            return factory.CreateStatement(string.Format(MethodReturnFormat, _toClassType.ClassTypeName, internalMappingCode));
         }
     }
 }

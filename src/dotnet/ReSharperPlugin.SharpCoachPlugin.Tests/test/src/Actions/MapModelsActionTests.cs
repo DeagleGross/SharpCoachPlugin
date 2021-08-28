@@ -13,5 +13,11 @@ namespace ReSharperPlugin.SharpCoachPlugin.Tests.test.src.Actions
         {
             DoNamedTest2();
         }
+        
+        [Test]
+        public void TestMapComplexModelActionTest()
+        {
+            DoNamedTest2();
+        }
     }
 }

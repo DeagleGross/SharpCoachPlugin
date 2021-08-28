@@ -4,17 +4,17 @@ using JetBrains.ReSharper.Psi;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
 {
-    public class ReferenceTypeInfoProvider
+    public class ClassTypeInfoProvider
     {
         private readonly IClass _classInfo;
-        
+
         public string VariableName { get; }
 
         public bool HasValidModelInfo => _classInfo is not null;
 
         public string ClassTypeName => _classInfo.ShortName;
 
-        public ReferenceTypeInfoProvider(IClass classInfo, string variableName = null)
+        public ClassTypeInfoProvider(IClass classInfo, string variableName = null)
         {
             _classInfo = classInfo;
             VariableName = !string.IsNullOrEmpty(variableName) ? variableName : string.Empty;

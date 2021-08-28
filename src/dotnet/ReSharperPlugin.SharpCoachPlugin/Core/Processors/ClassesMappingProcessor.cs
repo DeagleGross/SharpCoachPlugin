@@ -1,5 +1,6 @@
 using DefaultNamespace;
 using JetBrains.Collections;
+using JetBrains.Diagnostics;
 using ReSharperPlugin.SharpCoachPlugin.Core.Providers;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
@@ -8,21 +9,21 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
     {
         private readonly MappingCodeBuilder _mappingCodeBuilder;
         
-        private readonly ReferenceTypeInfoProvider _fromType;
-        private readonly ReferenceTypeInfoProvider _toType;
+        private readonly ClassTypeInfoProvider _fromClassType;
+        private readonly ClassTypeInfoProvider _toClassType;
 
-        public ClassesMappingProcessor(ReferenceTypeInfoProvider fromType, ReferenceTypeInfoProvider toType)
+        public ClassesMappingProcessor(ClassTypeInfoProvider fromClassType, ClassTypeInfoProvider toClassType)
         {
-            _fromType = fromType;
-            _toType = toType;
+            _fromClassType = fromClassType;
+            _toClassType = toClassType;
 
-            _mappingCodeBuilder = new MappingCodeBuilder(_fromType.VariableName);
+            _mappingCodeBuilder = new MappingCodeBuilder(_fromClassType.VariableName);
         }
 
         public string BuildMappingCode()
         {
-            var fromClassProperties = _fromType.GetPropertyNameInfoMap();
-            var toClassProperties = _toType.GetPropertyNameInfoMap();
+            var fromClassProperties = _fromClassType.GetPropertyNameInfoMap();
+            var toClassProperties = _toClassType.GetPropertyNameInfoMap();
 
             // compares properties one by one and does the mapping
             foreach (var (toClassPropertyName, toClassProperty) in toClassProperties)
@@ -35,10 +36,19 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                     // the most simple case - properties have the same type
                     if (Equals(fromClassProperty.Type, toClassProperty.Type))
                     {
-                        _mappingCodeBuilder.AddSimplePropertyBinding(toClassPropertyName);   
+                        _mappingCodeBuilder.AddSameTypeAndNamePropertyBinding(toClassPropertyName);   
                     }
                     else
                     {
+                        var fromPropertyTypeKind = fromClassProperty.Type.GetTypeKind();
+                        var toPropertyTypeKind = toClassProperty.Type.GetTypeKind();
+
+                        if (fromPropertyTypeKind is null || toPropertyTypeKind is null)
+                        {
+                            LogLog.Warn("Failed to determine type kind of property `{0}`", toClassPropertyName);
+                            continue;
+                        }
+
                         /* Here we are talking about collections of different types or about different types themselves.
                          *
                          * ---
@@ -78,8 +88,15 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                          * Again it is the same approach as the last one variant,
                          * but you dont have any information how to map i.e. `Stock[]` to `Dictionary<string, Stock>`
                          */
-
                         
+                        var specificTypeMapper = SpecificTypeMapperFactory.Create(_mappingCodeBuilder, fromPropertyTypeKind.Value);
+                        if (specificTypeMapper is null)
+                        {
+                            LogLog.Warn("Failed to find appropriate specificTypeMapper for property `{0}`", fromClassProperty.ShortName);
+                            continue;
+                        }
+                        
+                        specificTypeMapper.MapToType(fromClassProperty, toClassProperty, toPropertyTypeKind.Value);
                     }
                 }
             }

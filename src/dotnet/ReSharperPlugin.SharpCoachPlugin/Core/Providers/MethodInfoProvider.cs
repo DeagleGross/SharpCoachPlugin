@@ -27,17 +27,17 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
 
         public bool ReturnsReferenceType => _methodDeclaration.Type.Classify == TypeClassification.REFERENCE_TYPE;
 
-        public ReferenceTypeInfoProvider GetReturnTypeDeclaration()
+        public ClassTypeInfoProvider GetReturnTypeDeclaration()
         {
             var returnTypeReference = _methodDeclaration.TypeUsage?.LastChild as IReferenceName;
             var classDeclaration = returnTypeReference?.Reference.Resolve();
             
             return classDeclaration?.IsValid() == true 
-                ? new ReferenceTypeInfoProvider(classDeclaration.DeclaredElement as IClass) 
-                : new ReferenceTypeInfoProvider(null);
+                ? new ClassTypeInfoProvider(classDeclaration.DeclaredElement as IClass) 
+                : new ClassTypeInfoProvider(null);
         }
         
-        public ReferenceTypeInfoProvider GetArgumentTypeDeclaration(int index)
+        public ClassTypeInfoProvider GetArgumentTypeDeclaration(int index)
         {
             var argument = _methodDeclaration.Params.FindNodeAt(new TreeTextRange(new TreeOffset(index)));
             var argumentReferenceName = argument?.Parent as IReferenceName;
@@ -46,8 +46,8 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
             var parameter = _methodDeclaration.Params.Children().ElementAt(index) as IParameterDeclaration;
             
             return classDeclaration?.IsValid() == true 
-                ? new ReferenceTypeInfoProvider(classDeclaration.DeclaredElement as IClass, parameter?.DeclaredName) 
-                : new ReferenceTypeInfoProvider(null, parameter?.DeclaredName);
+                ? new ClassTypeInfoProvider(classDeclaration.DeclaredElement as IClass, parameter?.DeclaredName) 
+                : new ClassTypeInfoProvider(null, parameter?.DeclaredName);
         }
     }
 }

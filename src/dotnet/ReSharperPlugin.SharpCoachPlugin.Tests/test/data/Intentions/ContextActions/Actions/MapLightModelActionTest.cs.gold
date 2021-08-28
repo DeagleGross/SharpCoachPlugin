@@ -2,11 +2,14 @@ using System;
 
 public class MapModelsActionTestText
 {
-    public static UserResponse ToResponse{caret}(UserRequest request) => new()
+    public static UserResponse ToResponse{caret}(UserRequest request)
     {
-        Id = request.Id,
-        Name = request.Name
-    };
+        return new UserResponse()
+        {
+            Id = request.Id,
+            Name = request.Name
+        };
+    }
 }
 
 public class UserRequest

@@ -1,6 +1,4 @@
-using System;
 using System.Text;
-using ReSharperPlugin.SharpCoachPlugin.Core.Processors;
 
 namespace DefaultNamespace
 {
@@ -47,6 +45,18 @@ namespace DefaultNamespace
         public void AddWithToStringCall(string propertyName)
         {
             _stringBuilder.AppendLine($"{propertyName} = {_fromVariableName}.{propertyName}.ToString(),");
+        }
+
+        public void AddWithNumericTryParseCast(string propertyName, string numericCastType)
+        {
+            _stringBuilder.AppendLine(
+                $"{propertyName} = {numericCastType}.TryParse({_fromVariableName}.{propertyName}, out var tmpCastedValue) ? tmpCastedValue : default");
+        }
+        
+        public void AddWithEnumTryParseCast(string propertyName, string enumTypeName)
+        {
+            _stringBuilder.AppendLine(
+                $"{propertyName} = Enum.TryParse<{enumTypeName}>({_fromVariableName}.{propertyName}, out var tmpCastedValue) ? tmpCastedValue : default");
         }
     }
 }

@@ -17,12 +17,14 @@
     <Compile Remove="test/**/*" />
     <Compile Include="test\src\Actions\MapEnumInternalsTests.cs" />
     <Compile Include="test\src\Actions\MapNumericInternalsTests.cs" />
+    <Compile Include="test\src\Actions\MapStringInternalsTests.cs" />
     <None Include="test/**/*" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="test\data\Intentions\ContextActions" />
     <Folder Include="test\data\Intentions\ContextActions\Actions\Enum" />
+    <Folder Include="test\data\Intentions\ContextActions\Actions\String" />
   </ItemGroup>
 
 </Project>

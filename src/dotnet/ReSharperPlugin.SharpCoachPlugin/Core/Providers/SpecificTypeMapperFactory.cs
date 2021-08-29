@@ -10,7 +10,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
         {
             TypeKind.Numeric => new NumericTypeMapper(codeBuilder),
             TypeKind.Enum => new EnumTypeMapper(codeBuilder),
-            TypeKind.String => null,
+            TypeKind.String => new StringTypeMapper(codeBuilder),
             TypeKind.Class => null,
             TypeKind.Structure => null,
             TypeKind.Collection => null,

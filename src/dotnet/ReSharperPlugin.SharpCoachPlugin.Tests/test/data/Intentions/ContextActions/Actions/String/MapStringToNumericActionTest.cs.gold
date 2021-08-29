@@ -1,0 +1,19 @@
+using System;
+
+public class MapStringToNumericActionTest
+{
+    public static UserResponse ToResponse{caret}(UserRequest request)
+    {
+      return new UserResponse() {Age = long.TryParse(request.Age, out var tmpCastedValue) ? tmpCastedValue : default};
+    }
+}
+
+public class UserRequest
+{
+    public string Age { get; set; }
+}
+
+public class UserResponse
+{
+    public long Age { get; set; }
+}

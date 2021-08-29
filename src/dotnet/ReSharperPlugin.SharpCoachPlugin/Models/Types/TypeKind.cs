@@ -1,4 +1,4 @@
-namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
+namespace ReSharperPlugin.SharpCoachPlugin.Models.Types
 {
     public enum TypeKind
     {

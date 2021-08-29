@@ -1,6 +1,7 @@
 using System;
 using DefaultNamespace;
 using ReSharperPlugin.SharpCoachPlugin.Models;
+using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
 {
@@ -13,7 +14,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
             TypeKind.String => new StringTypeMapper(codeBuilder),
             TypeKind.Class => new ClassTypeMapper(codeBuilder),
             TypeKind.Structure => null,
-            TypeKind.Collection => null,
+            TypeKind.Collection => new CollectionTypeMapper(codeBuilder),
             _ => throw new ArgumentOutOfRangeException(nameof(fromType), fromType, null)
         };
     }

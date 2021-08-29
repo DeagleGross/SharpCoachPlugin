@@ -1,5 +1,6 @@
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Util;
+using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
 {

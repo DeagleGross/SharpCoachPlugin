@@ -3,6 +3,7 @@ using DefaultNamespace;
 using JetBrains.Diagnostics;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
+using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
 {

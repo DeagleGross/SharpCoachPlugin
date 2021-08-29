@@ -1,6 +1,7 @@
 using DefaultNamespace;
 using JetBrains.ReSharper.Psi;
 using ReSharperPlugin.SharpCoachPlugin.Models;
+using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
 {

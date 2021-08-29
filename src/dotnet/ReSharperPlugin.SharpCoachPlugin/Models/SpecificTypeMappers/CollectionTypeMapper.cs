@@ -6,9 +6,9 @@ using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
 namespace DefaultNamespace
 {
-    public class EnumTypeMapper : SpecificTypeMapperBase
+    public class CollectionTypeMapper : SpecificTypeMapperBase
     {
-        public EnumTypeMapper(MappingCodeBuilder codeBuilder)
+        public CollectionTypeMapper(MappingCodeBuilder codeBuilder) 
             : base(codeBuilder)
         {
         }
@@ -18,53 +18,42 @@ namespace DefaultNamespace
             switch (toType)
             {
                 case TypeKind.Numeric:
-                    MapToNumeric(fromProperty, toProperty);
+                    // can not think of a solution for this case
+                    LogLog.Info("There is no handler for mapping `Collection` type to `Numeric`");
                     break;
                 
                 case TypeKind.Enum:
                     // can not think of a solution for this case
-                    LogLog.Info("There is no handler for mapping `Enum` type to `Enum`");
+                    LogLog.Info("There is no handler for mapping `Collection` type to `Enum`");
                     break;
                 
                 case TypeKind.String:
-                    MapToString(fromProperty);
+                    // can not think of a solution for this case
+                    LogLog.Info("There is no handler for mapping `Collection` type to `String`");
                     break;
                 
                 case TypeKind.Class:
                     // can not think of a solution for this case
-                    LogLog.Info("There is no handler for mapping `Enum` type to `Class`");
+                    LogLog.Info("There is no handler for mapping `Collection` type to `Class`");
                     break;
                 
                 case TypeKind.Structure:
                     // can not think of a solution for this case
-                    LogLog.Info("There is no handler for mapping `Enum` type to `Struct`");
+                    LogLog.Info("There is no handler for mapping `Collection` type to `Structure`");
                     break;
                 
                 case TypeKind.Collection:
-                    // can not think of a solution for this case
-                    LogLog.Info("There is no handler for mapping `Enum` type to `Collection`");
+                    MapToCollection(fromProperty, toProperty);
                     break;
                 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(toType), toType, null);
             }
         }
-        
-        private void MapToNumeric(IProperty fromProperty, IProperty toProperty)
-        {
-            var toNumericType = toProperty.Type.ToNumeric();
-            if (toNumericType is null)
-            {
-                LogLog.Warn("Failed to map to numeric ({0})", fromProperty.ShortName);
-                return;
-            }
 
-            CodeBuilder.AddWithCastPropertyBinding(toProperty.ShortName, toNumericType.Value.GetNumericTypeStringRepresentation());
-        }
-
-        private void MapToString(IProperty fromProperty)
+        private void MapToCollection(IProperty fromProperty, IProperty toProperty)
         {
-            CodeBuilder.AddWithToStringCall(fromProperty.ShortName);
+            // TODO finish mapping collections
         }
     }
 }

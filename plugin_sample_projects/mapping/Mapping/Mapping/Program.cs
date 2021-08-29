@@ -10,16 +10,12 @@ namespace Mapping
         {
             Console.WriteLine("Hello World!");
         }
-        
+
         public static UserResponse Convert(UserRequest request)
         {
             return new UserResponse()
             {
-                Id = request.Id,
-                Name = request.Name,
-                IsActive = request.IsActive,
-                Role = request.Role,
-                ParentIds = request.ParentIds,
+                Id = request.Id, Name = request.Name, IsActive = request.IsActive, StockIds = request.StockIds,
             };
         }
     }

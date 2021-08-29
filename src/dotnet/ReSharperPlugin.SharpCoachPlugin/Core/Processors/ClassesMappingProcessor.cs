@@ -36,7 +36,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                     // the most simple case - properties have the same type
                     if (Equals(fromClassProperty.Type, toClassProperty.Type))
                     {
-                        _mappingCodeBuilder.AddSameTypeAndNamePropertyBinding(toClassPropertyName);   
+                        _mappingCodeBuilder.AddSimplePropertyBinding(toClassPropertyName);   
                     }
                     else
                     {

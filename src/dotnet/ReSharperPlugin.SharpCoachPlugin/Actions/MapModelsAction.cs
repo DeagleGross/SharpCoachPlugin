@@ -16,7 +16,7 @@ namespace DefaultNamespace
     {
         private const string MethodReturnFormat = @"
         {{ 
-            return new {0}() 
+            return new {0}()
             {{ 
                 {1} 
             }};

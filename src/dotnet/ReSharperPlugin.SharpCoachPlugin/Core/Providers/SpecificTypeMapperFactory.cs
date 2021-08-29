@@ -9,7 +9,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
         public static ISpecificTypeMapper Create(MappingCodeBuilder codeBuilder, TypeKind fromType) => fromType switch
         {
             TypeKind.Numeric => new NumericTypeMapper(codeBuilder),
-            TypeKind.Enum => null,
+            TypeKind.Enum => new EnumTypeMapper(codeBuilder),
             TypeKind.String => null,
             TypeKind.Class => null,
             TypeKind.Structure => null,

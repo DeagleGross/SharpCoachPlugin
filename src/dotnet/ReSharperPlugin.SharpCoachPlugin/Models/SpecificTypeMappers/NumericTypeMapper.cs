@@ -2,6 +2,7 @@ using System;
 using DefaultNamespace;
 using JetBrains.Diagnostics;
 using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.CSharp;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
 {
@@ -25,19 +26,24 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                     break;
                 
                 case TypeKind.String:
+                    MapToString(fromProperty, toProperty);
                     break;
                 
                 case TypeKind.Class:
-                    // can not think about a solution for this case
+                    // can not think of a solution for this case
+                    LogLog.Info("There is no handler for mapping `Numeric` type to `Class`");
                     break;
                 
                 case TypeKind.Structure:
-                    // can not think about a solution for this case
+                    // can not think of a solution for this case
+                    LogLog.Info("There is no handler for mapping `Numeric` type to `Struct`");
                     break;
                 
                 case TypeKind.Collection:
-                    // can not think about a solution for this case
+                    // can not think of a solution for this case
+                    LogLog.Info("There is no handler for mapping `Numeric` type to `Collection`");
                     break;
+                
                 default:
                     throw new ArgumentOutOfRangeException(nameof(toType), toType, null);
             }
@@ -54,17 +60,25 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                 return;
             }
 
-            CodeBuilder.AddNumericPropertyBinding(fromProperty.ShortName, fromNumericType.Value, toNumericType.Value);
+            if (fromNumericType > toNumericType)
+            {
+                CodeBuilder.AddWithCastPropertyBinding(fromProperty.ShortName, toNumericType.Value.GetNumericTypeStringRepresentation());
+            }
+            else
+            {
+                CodeBuilder.AddSimplePropertyBinding(fromProperty.ShortName);   
+            }
         }
         
         private void MapToEnum(IProperty fromProperty, IProperty toProperty)
         {
-            CodeBuilder.AddNumericToEnumPropertyBinding("asdf", fromProperty.ShortName);
+            var fullEnumTypeName = toProperty.Type.GetLongPresentableName(CSharpLanguage.Instance!);
+            CodeBuilder.AddWithCastPropertyBinding(toProperty.ShortName, fullEnumTypeName);
         }
 
         private void MapToString(IProperty fromProperty, IProperty toProperty)
         {
-            
+            CodeBuilder.AddWithToStringCall(toProperty.ShortName);
         }
     }
 }

@@ -31,29 +31,22 @@ namespace DefaultNamespace
         
         public MappingCodeBuilder(string fromVariableName)
         {
-            _fromVariableName = fromVariableName;
+            _fromVariableName = fromVariableName.Trim();
         }
 
-        public void AddSameTypeAndNamePropertyBinding(string propertyName)
+        public void AddSimplePropertyBinding(string propertyName)
         {
             _stringBuilder.AppendLine($"{propertyName} = {_fromVariableName}.{propertyName},");
         }
 
-        public void AddNumericToEnumPropertyBinding(string enumTypeName, string propertyName)
+        public void AddWithCastPropertyBinding(string propertyName, string castType)
         {
-            _stringBuilder.AppendLine($"{propertyName} = ({enumTypeName}){_fromVariableName}.{propertyName},");
+            _stringBuilder.AppendLine($"{propertyName} = ({castType}){_fromVariableName}.{propertyName},");
         }
 
-        public void AddNumericPropertyBinding(string propertyName, NumericType fromNumeric, NumericType toNumeric)
+        public void AddWithToStringCall(string propertyName)
         {
-            if (fromNumeric > toNumeric)
-            {
-                _stringBuilder.AppendLine($"{propertyName} = ({toNumeric.GetNumericTypeStringRepresentation()}){_fromVariableName}.{propertyName},");    
-            }
-            else
-            {
-                AddSameTypeAndNamePropertyBinding(propertyName);
-            }
+            _stringBuilder.AppendLine($"{propertyName} = {_fromVariableName}.{propertyName}.ToString(),");
         }
     }
 }

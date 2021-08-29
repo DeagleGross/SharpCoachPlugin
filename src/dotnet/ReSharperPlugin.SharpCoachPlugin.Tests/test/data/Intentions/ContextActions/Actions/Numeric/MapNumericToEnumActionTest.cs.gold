@@ -4,7 +4,7 @@ public class MapNumericToEnumActionTest
 {
     public static UserResponse ToResponse{caret}(UserRequest request)
     {
-      return new UserResponse() {AgeType = (AgeType)request.AgeType};
+      return new UserResponse() {AgeType = (UserResponse.Age) request.AgeType};
     }
 }
 
@@ -15,7 +15,7 @@ public class UserRequest
 
 public class UserResponse
 {
-    public enum AgeType { get; set; }
+    public Age AgeType { get; set; }
     
     public enum Age
     {

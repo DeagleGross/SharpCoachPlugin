@@ -4,9 +4,9 @@ using NUnit.Framework;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Tests.test.src.Actions
 {
-    public class MapModelsActionTests : CSharpContextActionExecuteTestBase<MapModelsAction>
+    public class MapNumericInternalsTests : CSharpContextActionExecuteTestBase<MapModelsAction>
     {
-        protected override string ExtraPath => @"Actions";
+        protected override string ExtraPath => @"Actions\Numeric";
 
         [Test]
         public void TestMapSameTypeAndNameProperties()
@@ -16,6 +16,12 @@ namespace ReSharperPlugin.SharpCoachPlugin.Tests.test.src.Actions
 
         [Test]
         public void TestMapNumericToEnumActionTest()
+        {
+            DoNamedTest2();
+        }
+        
+        [Test]
+        public void TestMapNumericToStringActionTest()
         {
             DoNamedTest2();
         }

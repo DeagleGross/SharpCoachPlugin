@@ -15,13 +15,14 @@
 
   <ItemGroup>
     <Compile Remove="test/**/*" />
-    <Compile Include="test\src\Actions\MapModelsActionTests.cs" />
+    <Compile Include="test\src\Actions\MapEnumInternalsTests.cs" />
+    <Compile Include="test\src\Actions\MapNumericInternalsTests.cs" />
     <None Include="test/**/*" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="test\data\Intentions\ContextActions" />
-    <Folder Include="test\data\Intentions\ContextActions\Actions" />
+    <Folder Include="test\data\Intentions\ContextActions\Actions\Enum" />
   </ItemGroup>
 
 </Project>

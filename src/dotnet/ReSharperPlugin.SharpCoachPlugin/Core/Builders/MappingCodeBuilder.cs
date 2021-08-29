@@ -6,7 +6,7 @@ namespace DefaultNamespace
     {
         private readonly StringBuilder _stringBuilder = new();
 
-        private readonly string _fromVariableName;
+        public string FromVariableName { get; }
 
         public string Result
         {
@@ -29,34 +29,42 @@ namespace DefaultNamespace
         
         public MappingCodeBuilder(string fromVariableName)
         {
-            _fromVariableName = fromVariableName.Trim();
+            FromVariableName = fromVariableName.Trim();
         }
 
         public void AddSimplePropertyBinding(string propertyName)
         {
-            _stringBuilder.AppendLine($"{propertyName} = {_fromVariableName}.{propertyName},");
+            _stringBuilder.AppendLine($"{propertyName} = {FromVariableName}.{propertyName},");
         }
 
         public void AddWithCastPropertyBinding(string propertyName, string castType)
         {
-            _stringBuilder.AppendLine($"{propertyName} = ({castType}){_fromVariableName}.{propertyName},");
+            _stringBuilder.AppendLine($"{propertyName} = ({castType}){FromVariableName}.{propertyName},");
         }
 
         public void AddWithToStringCall(string propertyName)
         {
-            _stringBuilder.AppendLine($"{propertyName} = {_fromVariableName}.{propertyName}.ToString(),");
+            _stringBuilder.AppendLine($"{propertyName} = {FromVariableName}.{propertyName}.ToString(),");
         }
 
         public void AddWithNumericTryParseCast(string propertyName, string numericCastType)
         {
             _stringBuilder.AppendLine(
-                $"{propertyName} = {numericCastType}.TryParse({_fromVariableName}.{propertyName}, out var tmpCastedValue) ? tmpCastedValue : default");
+                $"{propertyName} = {numericCastType}.TryParse({FromVariableName}.{propertyName}, out var tmpCastedValue) ? tmpCastedValue : default,");
         }
         
         public void AddWithEnumTryParseCast(string propertyName, string enumTypeName)
         {
             _stringBuilder.AppendLine(
-                $"{propertyName} = Enum.TryParse<{enumTypeName}>({_fromVariableName}.{propertyName}, out var tmpCastedValue) ? tmpCastedValue : default");
+                $"{propertyName} = Enum.TryParse<{enumTypeName}>({FromVariableName}.{propertyName}, out var tmpCastedValue) ? tmpCastedValue : default,");
+        }
+
+        public void AddClassPropertyBinding(string propertyName, string toFullClassName, string internalClassMappingCode)
+        {
+            _stringBuilder.AppendLine(@$"{propertyName} = new {toFullClassName}()
+{{
+    {internalClassMappingCode}
+}},");
         }
     }
 }

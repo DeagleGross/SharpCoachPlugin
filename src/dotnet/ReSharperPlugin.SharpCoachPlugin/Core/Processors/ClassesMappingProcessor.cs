@@ -13,11 +13,16 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
         private readonly ClassTypeInfoProvider _toClassType;
 
         public ClassesMappingProcessor(ClassTypeInfoProvider fromClassType, ClassTypeInfoProvider toClassType)
+            : this(fromClassType, toClassType, fromClassType.VariableName)
+        {
+        }
+        
+        public ClassesMappingProcessor(ClassTypeInfoProvider fromClassType, ClassTypeInfoProvider toClassType, string variableName)
         {
             _fromClassType = fromClassType;
             _toClassType = toClassType;
 
-            _mappingCodeBuilder = new MappingCodeBuilder(_fromClassType.VariableName);
+            _mappingCodeBuilder = new MappingCodeBuilder(variableName);
         }
 
         public string BuildMappingCode()

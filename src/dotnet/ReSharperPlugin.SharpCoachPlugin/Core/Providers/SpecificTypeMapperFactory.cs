@@ -11,7 +11,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
             TypeKind.Numeric => new NumericTypeMapper(codeBuilder),
             TypeKind.Enum => new EnumTypeMapper(codeBuilder),
             TypeKind.String => new StringTypeMapper(codeBuilder),
-            TypeKind.Class => null,
+            TypeKind.Class => new ClassTypeMapper(codeBuilder),
             TypeKind.Structure => null,
             TypeKind.Collection => null,
             _ => throw new ArgumentOutOfRangeException(nameof(fromType), fromType, null)

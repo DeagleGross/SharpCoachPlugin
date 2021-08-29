@@ -71,7 +71,7 @@ namespace DefaultNamespace
             var methodBody = _methodDeclaration.Body ?? _methodDeclaration.GetEmptyMethodBody();
             var factory = CSharpElementFactory.GetInstance(methodBody);
 
-            return factory.CreateStatement(string.Format(MethodReturnFormat, _toClassType.ClassTypeName, internalMappingCode));
+            return factory.CreateStatement(string.Format(MethodReturnFormat, _toClassType.FullClassTypeName, internalMappingCode));
         }
     }
 }

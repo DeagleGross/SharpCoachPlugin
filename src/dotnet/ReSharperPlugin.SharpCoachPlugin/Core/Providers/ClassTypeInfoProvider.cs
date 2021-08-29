@@ -12,7 +12,20 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
 
         public bool HasValidModelInfo => _classInfo is not null;
 
-        public string ClassTypeName => _classInfo.ShortName;
+        public string FullClassTypeName
+        {
+            get
+            {
+                if (_classInfo is null)
+                {
+                    return string.Empty;
+                }
+
+                return _classInfo.ContainingType is not null 
+                    ? $"{_classInfo.ContainingType.ShortName}.{_classInfo.ShortName}" 
+                    : _classInfo.ShortName;
+            }   
+        }
 
         public ClassTypeInfoProvider(IClass classInfo, string variableName = null)
         {

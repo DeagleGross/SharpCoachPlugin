@@ -1,6 +1,14 @@
 ﻿<Project>
 
   <PropertyGroup>
+    <PackageId>deaglegross.SharpCoachPlugin</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>deaglegross</Authors>
+    <Company>deaglegross</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

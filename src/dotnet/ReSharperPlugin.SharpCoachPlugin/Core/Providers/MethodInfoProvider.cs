@@ -25,7 +25,9 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
             }
         }
 
-        public bool ReturnsReferenceType => _methodDeclaration.Type.Classify == TypeClassification.REFERENCE_TYPE;
+        public bool ReturnsReferenceType => 
+            _methodDeclaration is not null &&
+            _methodDeclaration.Type.Classify == TypeClassification.REFERENCE_TYPE;
 
         public ClassTypeInfoProvider GetReturnTypeDeclaration()
         {

@@ -9,13 +9,13 @@ namespace ReSharperPlugin.SharpCoachPlugin.Tests.test.src.Actions
         protected override string ExtraPath => @"Actions";
 
         [Test]
-        public void TestMapLightModelActionTest()
+        public void TestMapSameTypeAndNameProperties()
         {
             DoNamedTest2();
         }
-        
+
         [Test]
-        public void TestMapComplexModelActionTest()
+        public void TestMapNumericToEnumActionTest()
         {
             DoNamedTest2();
         }

@@ -21,7 +21,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                     break;
                 
                 case TypeKind.Enum:
-                    
+                    MapToEnum(fromProperty, toProperty);
                     break;
                 
                 case TypeKind.String:

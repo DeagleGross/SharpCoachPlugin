@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="test\data\Intentions\ContextActions" />
+    <Folder Include="test\data\Intentions\ContextActions\Actions" />
   </ItemGroup>
 
 </Project>

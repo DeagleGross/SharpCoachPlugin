@@ -1,0 +1,31 @@
+using System;
+
+public class TestMapSameTypeAndNameProperties
+{
+    public static UserResponse ToResponse{caret}(UserRequest request)
+    {
+      return new UserResponse() {Id = request.Id, Name = request.Name, IsActive = request.IsActive, StockIds = request.StockIds};
+    }
+}
+
+public class UserRequest
+{
+    public int Id { get; set; }
+    
+    public string Name { get; set; }
+    
+    public bool IsActive { get; set; }
+    
+    public long[] StockIds { get; set; }
+}
+
+public class UserResponse
+{
+    public int Id { get; set; }
+    
+    public string Name { get; set; }
+    
+    public bool IsActive { get; set; }
+    
+    public long[] StockIds { get; set; }
+}

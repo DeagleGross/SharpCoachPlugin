@@ -4,14 +4,14 @@
     <SdkVersion>2021.2.0</SdkVersion>
 
     <Title>SharpCoachPlugin</Title>
-    <Description>Description</Description>
+    <Description>Generates code for mapping classes</Description>
 
-    <Authors>Author</Authors>
+    <Authors>deaglegross</Authors>
     <Copyright>Copyright $([System.DateTime]::Now.Year) Maintainers of SharpCoachPlugin</Copyright>
     <PackageTags>resharper plugin</PackageTags>
 
-    <PackageProjectUrl></PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/DeagleGross/SharpCoachPlugin</PackageProjectUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
   </PropertyGroup>
 

@@ -16,6 +16,7 @@
   <ItemGroup>
     <Compile Remove="test/**/*" />
     <Compile Include="test\src\Actions\MapClassInternalsTests.cs" />
+    <Compile Include="test\src\Actions\MapCollectionInternalsTests.cs" />
     <Compile Include="test\src\Actions\MapEnumInternalsTests.cs" />
     <Compile Include="test\src\Actions\MapNumericInternalsTests.cs" />
     <Compile Include="test\src\Actions\MapStringInternalsTests.cs" />
@@ -25,6 +26,7 @@
   <ItemGroup>
     <Folder Include="test\data\Intentions\ContextActions" />
     <Folder Include="test\data\Intentions\ContextActions\Actions\Class" />
+    <Folder Include="test\data\Intentions\ContextActions\Actions\Collection" />
     <Folder Include="test\data\Intentions\ContextActions\Actions\Enum" />
     <Folder Include="test\data\Intentions\ContextActions\Actions\String" />
   </ItemGroup>

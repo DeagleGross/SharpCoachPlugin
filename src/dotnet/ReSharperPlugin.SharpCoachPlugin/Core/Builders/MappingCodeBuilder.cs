@@ -32,39 +32,44 @@ namespace DefaultNamespace
             FromVariableName = fromVariableName.Trim();
         }
 
-        public void AddSimplePropertyBinding(string propertyName)
+        public void AddPropertyBindingStandard(string propertyName)
         {
             _stringBuilder.AppendLine($"{propertyName} = {FromVariableName}.{propertyName},");
         }
 
-        public void AddWithCastPropertyBinding(string propertyName, string castType)
+        public void AddPropertyBindingWithCast(string propertyName, string castType)
         {
             _stringBuilder.AppendLine($"{propertyName} = ({castType}){FromVariableName}.{propertyName},");
         }
 
-        public void AddWithToStringCall(string propertyName)
+        public void AddPropertyBindingWithToStringCall(string propertyName)
         {
             _stringBuilder.AppendLine($"{propertyName} = {FromVariableName}.{propertyName}.ToString(),");
         }
 
-        public void AddWithNumericTryParseCast(string propertyName, string numericCastType)
+        public void AddPropertyBindingWithNumericTryParseCast(string propertyName, string numericCastType)
         {
             _stringBuilder.AppendLine(
                 $"{propertyName} = {numericCastType}.TryParse({FromVariableName}.{propertyName}, out var tmpCastedValue) ? tmpCastedValue : default,");
         }
         
-        public void AddWithEnumTryParseCast(string propertyName, string enumTypeName)
+        public void AddPropertyBindingWithEnumTryParseCast(string propertyName, string enumTypeName)
         {
             _stringBuilder.AppendLine(
                 $"{propertyName} = Enum.TryParse<{enumTypeName}>({FromVariableName}.{propertyName}, out var tmpCastedValue) ? tmpCastedValue : default,");
         }
 
-        public void AddClassPropertyBinding(string propertyName, string toFullClassName, string internalClassMappingCode)
+        public void AddPropertyBindingForClass(string propertyName, string toFullClassName, string internalClassMappingCode)
         {
             _stringBuilder.AppendLine(@$"{propertyName} = new {toFullClassName}()
 {{
     {internalClassMappingCode}
 }},");
+        }
+        
+        public void AddPropertyBindingForLinqSelect(string propertyName, string lambdaMappingCode, string castToCollectionMethod)
+        {
+            _stringBuilder.AppendLine(@$"{propertyName} = {FromVariableName}.{propertyName}.Select({lambdaMappingCode}){castToCollectionMethod},");
         }
     }
 }

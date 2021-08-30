@@ -2,6 +2,7 @@ using System;
 using JetBrains.Diagnostics;
 using JetBrains.ReSharper.Psi;
 using ReSharperPlugin.SharpCoachPlugin.Core.Processors;
+using ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers;
 using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
 namespace DefaultNamespace
@@ -59,12 +60,12 @@ namespace DefaultNamespace
                 return;
             }
 
-            CodeBuilder.AddWithCastPropertyBinding(toProperty.ShortName, toNumericType.Value.GetNumericTypeStringRepresentation());
+            CodeBuilder.AddPropertyBindingWithCast(toProperty.ShortName, toNumericType.Value.GetNumericTypeStringRepresentation());
         }
 
         private void MapToString(IProperty fromProperty)
         {
-            CodeBuilder.AddWithToStringCall(fromProperty.ShortName);
+            CodeBuilder.AddPropertyBindingWithToStringCall(fromProperty.ShortName);
         }
     }
 }

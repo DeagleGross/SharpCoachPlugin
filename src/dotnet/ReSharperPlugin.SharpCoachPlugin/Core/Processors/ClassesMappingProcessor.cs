@@ -2,6 +2,7 @@ using DefaultNamespace;
 using JetBrains.Collections;
 using JetBrains.Diagnostics;
 using ReSharperPlugin.SharpCoachPlugin.Core.Providers;
+using ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
 {
@@ -41,7 +42,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                     // the most simple case - properties have the same type
                     if (Equals(fromClassProperty.Type, toClassProperty.Type))
                     {
-                        _mappingCodeBuilder.AddSimplePropertyBinding(toClassPropertyName);   
+                        _mappingCodeBuilder.AddPropertyBindingStandard(toClassPropertyName);   
                     }
                     else
                     {
@@ -94,7 +95,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                          * but you dont have any information how to map i.e. `Stock[]` to `Dictionary<string, Stock>`
                          */
                         
-                        var specificTypeMapper = SpecificTypeMapperFactory.Create(_mappingCodeBuilder, fromPropertyTypeKind.Value);
+                        var specificTypeMapper = SpecificTypeMapperFactory.CreateSpecificMapper(_mappingCodeBuilder, fromPropertyTypeKind.Value);
                         if (specificTypeMapper is null)
                         {
                             LogLog.Warn("Failed to find appropriate specificTypeMapper for property `{0}`", fromClassProperty.ShortName);

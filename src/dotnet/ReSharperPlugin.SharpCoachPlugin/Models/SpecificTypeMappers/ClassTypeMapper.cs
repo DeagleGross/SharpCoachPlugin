@@ -72,7 +72,7 @@ namespace DefaultNamespace
             var classesMappingProcessor = new ClassesMappingProcessor(fromClassTypeInfo, toClassTypeInfo);
             var internalClassesCodeMapping = classesMappingProcessor.BuildMappingCode();
 
-            CodeBuilder.AddClassPropertyBinding(fromProperty.ShortName, toClassTypeInfo.FullClassTypeName, internalClassesCodeMapping);
+            CodeBuilder.AddPropertyBindingForClass(fromProperty.ShortName, toClassTypeInfo.FullClassTypeName, internalClassesCodeMapping);
         }
     }
 }

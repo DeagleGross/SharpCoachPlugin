@@ -3,6 +3,7 @@ using JetBrains.Diagnostics;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using ReSharperPlugin.SharpCoachPlugin.Core.Processors;
+using ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers;
 using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
 namespace DefaultNamespace
@@ -60,13 +61,13 @@ namespace DefaultNamespace
                 return;
             }
 
-            CodeBuilder.AddWithNumericTryParseCast(fromProperty.ShortName, toNumericType.Value.GetNumericTypeStringRepresentation());
+            CodeBuilder.AddPropertyBindingWithNumericTryParseCast(fromProperty.ShortName, toNumericType.Value.GetNumericTypeStringRepresentation());
         }
 
         private void MapToEnum(IProperty fromProperty, IProperty toProperty)
         {
             var fullEnumTypeName = toProperty.Type.GetLongPresentableName(CSharpLanguage.Instance!);
-            CodeBuilder.AddWithEnumTryParseCast(fromProperty.ShortName, fullEnumTypeName);
+            CodeBuilder.AddPropertyBindingWithEnumTryParseCast(fromProperty.ShortName, fullEnumTypeName);
         }
     }
 }

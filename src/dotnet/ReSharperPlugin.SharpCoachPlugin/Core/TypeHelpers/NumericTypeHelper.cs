@@ -1,9 +1,9 @@
 using JetBrains.ReSharper.Psi;
 using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
-namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
+namespace ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers
 {
-    public static class NumericTypeConverter
+    public static class NumericTypeHelper
     {
         public static string GetNumericTypeStringRepresentation(this NumericType numericType) => numericType.ToString().ToLower();
 

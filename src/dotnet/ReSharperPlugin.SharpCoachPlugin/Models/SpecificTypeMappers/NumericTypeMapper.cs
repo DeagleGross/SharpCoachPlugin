@@ -3,6 +3,7 @@ using DefaultNamespace;
 using JetBrains.Diagnostics;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
+using ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers;
 using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
@@ -63,23 +64,23 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
 
             if (fromNumericType > toNumericType)
             {
-                CodeBuilder.AddWithCastPropertyBinding(fromProperty.ShortName, toNumericType.Value.GetNumericTypeStringRepresentation());
+                CodeBuilder.AddPropertyBindingWithCast(fromProperty.ShortName, toNumericType.Value.GetNumericTypeStringRepresentation());
             }
             else
             {
-                CodeBuilder.AddSimplePropertyBinding(fromProperty.ShortName);   
+                CodeBuilder.AddPropertyBindingStandard(fromProperty.ShortName);   
             }
         }
         
         private void MapToEnum(IProperty fromProperty, IProperty toProperty)
         {
             var fullEnumTypeName = toProperty.Type.GetLongPresentableName(CSharpLanguage.Instance!);
-            CodeBuilder.AddWithCastPropertyBinding(toProperty.ShortName, fullEnumTypeName);
+            CodeBuilder.AddPropertyBindingWithCast(toProperty.ShortName, fullEnumTypeName);
         }
 
         private void MapToString(IProperty fromProperty, IProperty toProperty)
         {
-            CodeBuilder.AddWithToStringCall(toProperty.ShortName);
+            CodeBuilder.AddPropertyBindingWithToStringCall(toProperty.ShortName);
         }
     }
 }

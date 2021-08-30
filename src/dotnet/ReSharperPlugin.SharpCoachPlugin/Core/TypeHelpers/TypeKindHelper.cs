@@ -2,9 +2,9 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Util;
 using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
-namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
+namespace ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers
 {
-    public static class TypeKindConverter
+    public static class TypeKindHelper
     {
         public static TypeKind? GetTypeKind(this IType type)
         {
@@ -36,7 +36,8 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                 return TypeKind.Structure;
             }
 
-            if (type.IsCollectionLike())
+            // TODO work on resolving type
+            if (type is IArrayType)
             {
                 return TypeKind.Collection;
             }

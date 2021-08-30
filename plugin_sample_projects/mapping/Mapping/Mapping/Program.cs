@@ -15,7 +15,11 @@ namespace Mapping
         {
             return new UserResponse()
             {
-                Id = request.Id, Name = request.Name, IsActive = request.IsActive, StockIds = request.StockIds,
+                Id = request.Id,
+                Name = request.Name,
+                IsActive = request.IsActive,
+                StockIds = request.StockIds,
+                OwnedStock = new UserResponse.Stock() { Id = request.OwnedStock.Id, Name = request.OwnedStock.Name }
             };
         }
     }

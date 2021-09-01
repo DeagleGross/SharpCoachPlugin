@@ -18,7 +18,7 @@ namespace DefaultNamespace
                 }
 
                 // removing last ','
-                if (_stringBuilder[^3] == ',')
+                if (_stringBuilder[_stringBuilder.Length - 3] == ',')
                 {
                     _stringBuilder.Remove(_stringBuilder.Length - 3, 1);   
                 }

@@ -1,13 +1,13 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <SdkVersion>2021.2.0</SdkVersion>
+    <SdkVersion>2021.1.5</SdkVersion>
 
-    <Title>SharpCoachPlugin</Title>
-    <Description>Generates code for mapping classes</Description>
+    <Title>CoachSharp</Title>
+    <Description>Useful features for C# development</Description>
 
     <Authors>deaglegross</Authors>
-    <Copyright>Copyright $([System.DateTime]::Now.Year) Maintainers of SharpCoachPlugin</Copyright>
+    <Copyright>Copyright $([System.DateTime]::Now.Year) Maintainers of CoachSharp</Copyright>
     <PackageTags>resharper plugin</PackageTags>
 
     <PackageProjectUrl>https://github.com/DeagleGross/SharpCoachPlugin</PackageProjectUrl>

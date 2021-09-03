@@ -12,15 +12,6 @@ namespace Mapping
         }
 
         public static UserResponse Convert(UserRequest request)
-        {
-            return new UserResponse()
-            {
-                Id = request.Id,
-                Name = request.Name,
-                IsActive = request.IsActive,
-                StockIds = request.StockIds,
-                OwnedStock = new UserResponse.Stock() { Id = request.OwnedStock.Id, Name = request.OwnedStock.Name }
-            };
-        }
+       
     }
 }

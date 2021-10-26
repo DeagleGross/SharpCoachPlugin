@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    # because of project specificity, we need to run net472, so choosing windows
+    runs-on: [windows-latest]
+
+    steps:
+    # check out repository under $GITHUB_WORKSPACE, so job can access it
+    - uses: actions/checkout@v2
+    
+    # helps set up MSBuild into PATH for later usage
+    - name: setup MsBuild
+      uses: microsoft/setup-msbuild@v1.0.3
+      
+    # install nuget.exe
+    - name: Setup NuGet.exe
+      uses: NuGet/setup-nuget@v1.0.5
+      
+    - name: Restore Nuget Packages
+      run: nuget restore ReSharperPlugin.SharpCoachPlugin.sln
+      
+    - name: Build the Solution
+      run: msbuild ReSharperPlugin.SharpCoachPlugin.sln

@@ -23,3 +23,8 @@ gradlew :runIde
 # For Rider & ReSharper (Gradle)
 gradlew :publishPlugin -PPluginVersion=<version> -PPublishToken=<token>
 ```
+
+### Contribution Info
+Feel free to take part in developing the project. 
+You can start with viewing opened [issues](https://github.com/DeagleGross/SharpCoachPlugin/issues).  
+Also if you find any bugs or you have any ideas about new features, please, open a new issue

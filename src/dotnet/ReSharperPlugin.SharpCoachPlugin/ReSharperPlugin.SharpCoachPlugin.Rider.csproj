@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models" />
+    <ProjectReference Include="..\ReSharperPlugin.SharpCoachPlugin.Core\ReSharperPlugin.SharpCoachPlugin.Core.csproj" />
   </ItemGroup>
 
   <!-- TODO: uncomment for xaml icons -->

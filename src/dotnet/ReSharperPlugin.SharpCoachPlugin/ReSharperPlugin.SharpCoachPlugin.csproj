@@ -28,17 +28,12 @@
     <PackageReference Include="Wave" Version="[$(WaveVersion),$(UpperWaveVersion))" />
   </ItemGroup>
 
-
   <ItemGroup>
     <Content Include="bin\$(AssemblyName)\$(Configuration)\$(AssemblyName).dll" PackagePath="dotFiles" Pack="true" />
     <Content Include="bin\$(AssemblyName)\$(Configuration)\$(AssemblyName).pdb" PackagePath="dotFiles" Pack="true" />
 
     <!-- TODO: add additional assemblies -->
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Models" />
+    <ProjectReference Include="..\ReSharperPlugin.SharpCoachPlugin.Core\ReSharperPlugin.SharpCoachPlugin.Core.csproj" />
   </ItemGroup>
 
   <!-- WARNING: ReSharper plugins with icons must be compiled using PowerShell scripts -->

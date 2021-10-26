@@ -1,11 +1,11 @@
 using System;
 using JetBrains.Diagnostics;
 using JetBrains.ReSharper.Psi;
-using ReSharperPlugin.SharpCoachPlugin.Core.Processors;
+using ReSharperPlugin.SharpCoachPlugin.Core.Builders;
+using ReSharperPlugin.SharpCoachPlugin.Core.Models.Types;
 using ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers;
-using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
-namespace DefaultNamespace
+namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
 {
     public class EnumTypeMapper : SpecificTypeMapperBase
     {

@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace DefaultNamespace
+namespace ReSharperPlugin.SharpCoachPlugin.Core.Builders
 {
     public class MappingCodeBuilder
     {

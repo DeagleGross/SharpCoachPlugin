@@ -1,6 +1,6 @@
-using DefaultNamespace;
 using JetBrains.Collections;
 using JetBrains.Diagnostics;
+using ReSharperPlugin.SharpCoachPlugin.Core.Builders;
 using ReSharperPlugin.SharpCoachPlugin.Core.Providers;
 using ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers;
 

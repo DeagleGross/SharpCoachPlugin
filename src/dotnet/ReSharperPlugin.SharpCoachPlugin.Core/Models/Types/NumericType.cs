@@ -1,4 +1,4 @@
-namespace ReSharperPlugin.SharpCoachPlugin.Models.Types
+namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.Types
 {
     public enum NumericType
     {

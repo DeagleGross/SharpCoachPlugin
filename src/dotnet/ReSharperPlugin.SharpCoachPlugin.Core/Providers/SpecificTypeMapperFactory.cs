@@ -1,9 +1,9 @@
 using System;
-using DefaultNamespace;
-using ReSharperPlugin.SharpCoachPlugin.Models;
-using ReSharperPlugin.SharpCoachPlugin.Models.Types;
+using ReSharperPlugin.SharpCoachPlugin.Core.Builders;
+using ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers;
+using ReSharperPlugin.SharpCoachPlugin.Core.Models.Types;
 
-namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
+namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
 {
     public static class SpecificTypeMapperFactory
     {

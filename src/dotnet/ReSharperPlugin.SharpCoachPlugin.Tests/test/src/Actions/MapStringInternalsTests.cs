@@ -1,6 +1,6 @@
-using DefaultNamespace;
 using JetBrains.ReSharper.FeaturesTestFramework.Intentions;
 using NUnit.Framework;
+using ReSharperPlugin.SharpCoachPlugin.Actions;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Tests.test.src.Actions
 {

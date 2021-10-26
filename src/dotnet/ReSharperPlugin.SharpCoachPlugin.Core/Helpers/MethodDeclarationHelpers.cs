@@ -1,7 +1,7 @@
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 
-namespace DefaultNamespace
+namespace ReSharperPlugin.SharpCoachPlugin.Core.Helpers
 {
     public static class MethodDeclarationHelpers
     {

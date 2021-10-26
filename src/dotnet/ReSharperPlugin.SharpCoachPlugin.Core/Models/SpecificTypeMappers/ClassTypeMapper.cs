@@ -2,11 +2,12 @@ using System;
 using JetBrains.Diagnostics;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Util;
+using ReSharperPlugin.SharpCoachPlugin.Core.Builders;
+using ReSharperPlugin.SharpCoachPlugin.Core.Models.Types;
 using ReSharperPlugin.SharpCoachPlugin.Core.Processors;
 using ReSharperPlugin.SharpCoachPlugin.Core.Providers;
-using ReSharperPlugin.SharpCoachPlugin.Models.Types;
 
-namespace DefaultNamespace
+namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
 {
     public class ClassTypeMapper : SpecificTypeMapperBase
     {

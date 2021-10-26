@@ -1,7 +1,7 @@
 using JetBrains.ReSharper.Psi;
-using ReSharperPlugin.SharpCoachPlugin.Models.Types;
+using ReSharperPlugin.SharpCoachPlugin.Core.Models.Types;
 
-namespace ReSharperPlugin.SharpCoachPlugin.Models
+namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
 {
     public interface ISpecificTypeMapper
     {

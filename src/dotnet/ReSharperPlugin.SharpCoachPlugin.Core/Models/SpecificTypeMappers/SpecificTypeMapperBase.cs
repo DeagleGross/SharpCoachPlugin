@@ -1,9 +1,8 @@
-using DefaultNamespace;
 using JetBrains.ReSharper.Psi;
-using ReSharperPlugin.SharpCoachPlugin.Models;
-using ReSharperPlugin.SharpCoachPlugin.Models.Types;
+using ReSharperPlugin.SharpCoachPlugin.Core.Builders;
+using ReSharperPlugin.SharpCoachPlugin.Core.Models.Types;
 
-namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
+namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
 {
     public abstract  class SpecificTypeMapperBase : ISpecificTypeMapper
     {

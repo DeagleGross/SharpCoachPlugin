@@ -7,3 +7,15 @@
 ### Branches
 When new version of plugin is published, it is needed to merge `main` to all branches `versions\rider_***`.
 In each of the versions `Product_Version` in [gradle.properties](./gradle.properties) is different, so that users can get plugin for different Rider build versions.
+
+### Build
+```
+# For Rider
+gradlew :runIde
+```
+
+### Publish
+```
+# For Rider & ReSharper (Gradle)
+gradlew :publishPlugin -PPluginVersion=<version> -PPublishToken=<token>
+```

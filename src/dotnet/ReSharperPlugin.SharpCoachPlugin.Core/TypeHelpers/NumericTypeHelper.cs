@@ -1,5 +1,5 @@
 using JetBrains.ReSharper.Psi;
-using ReSharperPlugin.SharpCoachPlugin.Models.Types;
+using ReSharperPlugin.SharpCoachPlugin.Core.Models.Types;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers
 {

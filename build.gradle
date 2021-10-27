@@ -172,7 +172,10 @@ prepareSandbox {
     def dllFiles = [
             "$outputFolder/${DotnetPluginId}.dll",
             "$outputFolder/${DotnetPluginId}.pdb",
-            // TODO: add additional assemblies
+            
+            // shared library for all logic
+            "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Core.dll",
+            "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Core.pdb",
     ]
 
     dllFiles.forEach({ f ->

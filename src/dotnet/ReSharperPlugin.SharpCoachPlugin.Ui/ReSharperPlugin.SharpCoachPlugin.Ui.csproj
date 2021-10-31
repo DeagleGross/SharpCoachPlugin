@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="PresentationCore" />
+      <Reference Include="PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+        <HintPath>C:\Users\deagl\.nuget\packages\microsoft.netframework.referenceassemblies.net472\1.0.0\build\.NETFramework\v4.7.2\PresentationFramework.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Windows.Forms" />
+      <Reference Include="System.Xaml" />
+      <Reference Include="WindowsBase" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="JetBrains.Platform.Core.Shell" Version="211.0.20210716.95744" />
+      <PackageReference Include="JetBrains.Platform.Lib.VisualStudio.AnyVs.ShellInterop.PrivateBuild" Version="2.0.20141005.1" />
+      <PackageReference Include="JetBrains.Platform.UIInteractive.Shell" Version="211.0.20210722.90748" />
+      <PackageReference Include="JetBrains.Psi.Features.Core" Version="211.0.20210722.92107" />
+    </ItemGroup>
+
+</Project>

@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk.WindowsDesktop" />
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
@@ -17,11 +17,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JetBrains.Platform.Core.Shell" Version="211.0.20210716.95744" />
     <PackageReference Include="JetBrains.Rider.SDK" Version="$(SdkVersion)" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ReSharperPlugin.SharpCoachPlugin.Core\ReSharperPlugin.SharpCoachPlugin.Core.csproj" />
+    <ProjectReference Include="..\ReSharperPlugin.SharpCoachPlugin.Ui\ReSharperPlugin.SharpCoachPlugin.Ui.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
 
   <!-- TODO: uncomment for xaml icons -->

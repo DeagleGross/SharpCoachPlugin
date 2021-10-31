@@ -176,6 +176,10 @@ prepareSandbox {
             // shared library for all logic
             "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Core.dll",
             "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Core.pdb",
+            
+            // shared library for UI support
+            "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Ui.dll",
+            "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Ui.pdb",
     ]
 
     dllFiles.forEach({ f ->

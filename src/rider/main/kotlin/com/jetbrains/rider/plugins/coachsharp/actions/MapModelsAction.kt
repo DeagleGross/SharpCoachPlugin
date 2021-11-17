@@ -1,4 +1,4 @@
-package com.jetbrains.rider.plugins.coachsharp
+package com.jetbrains.rider.plugins.coachsharp.actions
 
 import com.jetbrains.rider.actions.base.RiderAnAction
 

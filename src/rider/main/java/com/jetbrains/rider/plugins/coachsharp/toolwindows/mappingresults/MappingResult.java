@@ -1,13 +1,21 @@
 package com.jetbrains.rider.plugins.coachsharp.toolwindows.mappingresults;
 
-class MappingResult implements java.io.Serializable
-{
-    public int a;
-    public String b;
-  
-    public MappingResult(int a, String b)
-    {
-        this.a = a;
-        this.b = b;
+import java.io.Serializable;
+
+public class MappingResult implements Serializable {
+    public String inputClassName;
+    public String outputClassName;
+    public String operationDate;
+
+    public String[] failedInputProperties;
+    public String[] failedOutputProperties;
+
+    public MappingResult(String inputClassName, String outputClassName, String operationDate, String[] failedInputProperties, String[] failedOutputProperties){
+        this.inputClassName = inputClassName;
+        this.outputClassName = outputClassName;
+        this.operationDate = operationDate;
+
+        this.failedInputProperties = failedInputProperties;
+        this.failedOutputProperties = failedOutputProperties;
     }
 }

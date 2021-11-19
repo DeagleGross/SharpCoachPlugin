@@ -5,13 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import javax.swing.*;
-import java.awt.*;
+import java.io.File;
 
 @SpringBootApplication
 public class AppApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(AppApplication.class).headless(false).run(args);
+        // new SpringApplicationBuilder(AppApplication.class).headless(false).run(args);
+        new FileWatcher(new File("F:\\Projects\\SharpCoachPlugin\\design_builder_app\\test.json")).start();
     }
 
     @Override
@@ -25,6 +26,8 @@ public class AppApplication implements CommandLineRunner {
     }
 
     private JPanel getContent(){
+
+
         var contentManager = new ContentManager();
         return contentManager.getContent();
     }

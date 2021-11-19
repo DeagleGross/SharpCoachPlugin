@@ -7,9 +7,15 @@ public class MappingResult implements Serializable {
     public String outputClassName;
     public String operationDate;
 
-    public MappingResult(String inputClassName, String outputClassName, String operationDate){
+    public String[] failedInputProperties;
+    public String[] failedOutputProperties;
+
+    public MappingResult(String inputClassName, String outputClassName, String operationDate, String[] failedInputProperties, String[] failedOutputProperties){
         this.inputClassName = inputClassName;
         this.outputClassName = outputClassName;
         this.operationDate = operationDate;
+
+        this.failedInputProperties = failedInputProperties;
+        this.failedOutputProperties = failedOutputProperties;
     }
 }

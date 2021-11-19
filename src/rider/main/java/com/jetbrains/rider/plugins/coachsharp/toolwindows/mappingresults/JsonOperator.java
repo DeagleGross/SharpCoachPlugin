@@ -1,29 +1,21 @@
 package com.jetbrains.rider.plugins.coachsharp.toolwindows.mappingresults;
 
-import java.io.*;
+import com.google.gson.Gson;
 
-class JsonOperator
-{
-    public static Object Deserialize(String filename)
-    {
-        try 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class JsonOperator {
+    public static MappingResult[] DeserializeToMappingResults(String filename){
+        try
         {
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(file);
-            
-            var deserializedObject = in.readObject();
-            
-            in.close();
-            file.close();
-            
-            return deserializedObject;
+            Gson g = new Gson();
+            var serialized = Files.readString(Path.of(filename));
+            return g.fromJson(serialized, MappingResult[].class);
         }
         catch (IOException ex) {
             return null;
         }
-  
-        catch (ClassNotFoundException ex) {
-            return null;
-        }
-    }  
+    }
 }

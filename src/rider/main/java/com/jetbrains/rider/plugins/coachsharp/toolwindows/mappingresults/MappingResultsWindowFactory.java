@@ -9,6 +9,8 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+
 public class MappingResultsWindowFactory implements ToolWindowFactory {
 
   /**
@@ -18,10 +20,19 @@ public class MappingResultsWindowFactory implements ToolWindowFactory {
    * @param toolWindow current tool window
    */
   public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
+    drawToolWindow(project, toolWindow);
+    setupContentWatcher(project, toolWindow);
+  }
+  
+  public static void drawToolWindow(Project project, ToolWindow toolWindow){
     MappingResultsWindow myToolWindow = new MappingResultsWindow(toolWindow);
     ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
     Content content = contentFactory.createContent(myToolWindow.getContent(), "", false);
     toolWindow.getContentManager().addContent(content);
+  }
+  
+  private void setupContentWatcher(Project project, ToolWindow toolWindow){
+      // new FileWatcher(new File("F:\\Projects\\SharpCoachPlugin\\design_builder_app\\test.json"), project, toolWindow).start();
   }
 
 }

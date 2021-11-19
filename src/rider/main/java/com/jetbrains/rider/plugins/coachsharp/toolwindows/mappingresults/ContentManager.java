@@ -1,4 +1,4 @@
-package com.example.app;
+package com.jetbrains.rider.plugins.coachsharp.toolwindows.mappingresults;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

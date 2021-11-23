@@ -20,10 +20,6 @@
     <applicationConfigurable id="CoachSharpOptionsPage" 
                              groupId="language" 
                              instance="com.jetbrains.rider.plugins.coachsharp.options.CoachSharpOptionsPage"/>
-    
-    <!-- tool window -->
-    <toolWindow id="Mapping Results" secondary="true" anchor="right"
-                factoryClass="com.jetbrains.rider.plugins.coachsharp.toolwindows.mappingresults.MappingResultsWindowFactory"/>
   </extensions>
   
   <actions>

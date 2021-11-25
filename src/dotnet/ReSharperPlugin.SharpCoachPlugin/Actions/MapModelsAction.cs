@@ -9,7 +9,6 @@ using JetBrains.TextControl;
 using JetBrains.Util;
 using ReSharperPlugin.SharpCoachPlugin.Core.Components;
 using ReSharperPlugin.SharpCoachPlugin.Core.Helpers;
-using ReSharperPlugin.SharpCoachPlugin.Core.Models;
 using ReSharperPlugin.SharpCoachPlugin.Core.Processors;
 using ReSharperPlugin.SharpCoachPlugin.Core.Providers;
 using ReSharperPlugin.SharpCoachPlugin.Ui.ToolWindows;
@@ -65,21 +64,9 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
 
             var methodMappingCode = _classesMappingProcessor.BuildMappingCode();
             var mappingMethodBody = EmbedMappingCodeToMethodBody(methodMappingCode);
-
             _methodDeclaration.SetCodeBody(mappingMethodBody);
 
-            var a = Shell.Instance.GetComponent<MappingResultsProvider>();
-            a.Add(new MappingOperationResult
-            {
-                InputClassName = "hello",
-                OutputClassName = "world",
-                OperationDate = DateTime.Now,
-                InputClassErrorPropertyNames = new [] { "h", "e" },
-                OutputClassErrorPropertyNames = new [] { "q", "qwe", "qwe" }
-            });
-            
             ShowMapModelsToolWindow();
-
             return null;
         }
 
@@ -94,8 +81,11 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
 
         private void ShowMapModelsToolWindow()
         {
-            var mappingResultsProvider = Shell.Instance.GetComponent<IMappingResultsStorage>();
-            MapModelsLogsToolWindow.Show(mappingResultsProvider);
+            var mappingResultsProvider = Shell.Instance.GetComponent<MappingResultsStorage>();
+            mappingResultsProvider.Add(_classesMappingProcessor.MappingResultWrapper.MappingOperationResult);
+
+            // explicitly showing window only when operation is not successful
+            MapModelsLogsToolWindowUI.Show(mappingResultsProvider, _classesMappingProcessor.MappingResultWrapper.IsSuccessful);
         }
     }
 }

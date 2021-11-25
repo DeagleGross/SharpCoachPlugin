@@ -15,43 +15,40 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
         {
         }
 
-        public override void MapToType(IProperty fromProperty, IProperty toProperty, TypeKind toType)
+        public override bool TryMapToType(IProperty fromProperty, IProperty toProperty, TypeKind toType)
         {
             switch (toType)
             {
                 case TypeKind.Numeric:
-                    MapToNumeric(fromProperty, toProperty);
-                    break;
-                
+                    return TryMapToNumeric(fromProperty, toProperty);
+
                 case TypeKind.Enum:
-                    MapToEnum(fromProperty, toProperty);
-                    break;
-                
+                    return TryMapToEnum(fromProperty, toProperty);
+
                 case TypeKind.String:
-                    MapToString(fromProperty, toProperty);
-                    break;
-                
+                    return TryMapToString(fromProperty, toProperty);
+
                 case TypeKind.Class:
                     // can not think of a solution for this case
                     LogLog.Info("There is no handler for mapping `Numeric` type to `Class`");
-                    break;
+                    return false;
                 
                 case TypeKind.Structure:
                     // can not think of a solution for this case
                     LogLog.Info("There is no handler for mapping `Numeric` type to `Struct`");
-                    break;
+                    return false;
                 
                 case TypeKind.Collection:
                     // can not think of a solution for this case
                     LogLog.Info("There is no handler for mapping `Numeric` type to `Collection`");
-                    break;
+                    return false;
                 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(toType), toType, null);
             }
         }
 
-        private void MapToNumeric(IProperty fromProperty, IProperty toProperty)
+        private bool TryMapToNumeric(IProperty fromProperty, IProperty toProperty)
         {
             var fromNumericType = fromProperty.Type.ToNumeric();
             var toNumericType = toProperty.Type.ToNumeric();
@@ -59,28 +56,32 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
             if (fromNumericType is null || toNumericType is null)
             {
                 LogLog.Warn("Failed to map numeric types one to another ({0})", fromProperty.ShortName);
-                return;
+                return false;
             }
 
             if (fromNumericType > toNumericType)
             {
                 CodeBuilder.AddPropertyBindingWithCast(fromProperty.ShortName, toNumericType.Value.GetNumericTypeStringRepresentation());
+                return true;
             }
             else
             {
-                CodeBuilder.AddPropertyBindingStandard(fromProperty.ShortName);   
+                CodeBuilder.AddPropertyBindingStandard(fromProperty.ShortName);
+                return true;
             }
         }
         
-        private void MapToEnum(IProperty fromProperty, IProperty toProperty)
+        private bool TryMapToEnum(IProperty fromProperty, IProperty toProperty)
         {
             var fullEnumTypeName = toProperty.Type.GetLongPresentableName(CSharpLanguage.Instance!);
             CodeBuilder.AddPropertyBindingWithCast(toProperty.ShortName, fullEnumTypeName);
+            return true;
         }
 
-        private void MapToString(IProperty fromProperty, IProperty toProperty)
+        private bool TryMapToString(IProperty fromProperty, IProperty toProperty)
         {
             CodeBuilder.AddPropertyBindingWithToStringCall(toProperty.ShortName);
+            return true;
         }
     }
 }

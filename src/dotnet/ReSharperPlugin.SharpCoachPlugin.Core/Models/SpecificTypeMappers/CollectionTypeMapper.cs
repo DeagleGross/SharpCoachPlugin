@@ -17,52 +17,51 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
         {
         }
 
-        public override void MapToType(IProperty fromProperty, IProperty toProperty, TypeKind toType)
+        public override bool TryMapToType(IProperty fromProperty, IProperty toProperty, TypeKind toType)
         {
             switch (toType)
             {
                 case TypeKind.Numeric:
                     // can not think of a solution for this case
                     LogLog.Info("There is no handler for mapping `Collection` type to `Numeric`");
-                    break;
+                    return false;
                 
                 case TypeKind.Enum:
                     // can not think of a solution for this case
                     LogLog.Info("There is no handler for mapping `Collection` type to `Enum`");
-                    break;
+                    return false;
                 
                 case TypeKind.String:
                     // can not think of a solution for this case
                     LogLog.Info("There is no handler for mapping `Collection` type to `String`");
-                    break;
+                    return false;
                 
                 case TypeKind.Class:
                     // can not think of a solution for this case
                     LogLog.Info("There is no handler for mapping `Collection` type to `Class`");
-                    break;
+                    return false;
                 
                 case TypeKind.Structure:
                     // can not think of a solution for this case
                     LogLog.Info("There is no handler for mapping `Collection` type to `Structure`");
-                    break;
+                    return false;
                 
                 case TypeKind.Collection:
-                    MapToCollection(fromProperty, toProperty);
-                    break;
-                
+                    return TryMapToCollection(fromProperty, toProperty);
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(toType), toType, null);
             }
         }
 
-        private void MapToCollection(IProperty fromProperty, IProperty toProperty)
+        private bool TryMapToCollection(IProperty fromProperty, IProperty toProperty)
         {
             var fromCollectionType = fromProperty.Type.ToCollectionType();
             var toCollectionType = fromProperty.Type.ToCollectionType();
             if (!fromCollectionType.SupportsLinq() || toCollectionType is null)
             {
                 LogLog.Warn("Failed to find collection type of property {0}", fromProperty.ShortName);
-                return;
+                return false;
             }
 
             var fromUnderlyingType = fromProperty.GetUnderlyingType(fromCollectionType);
@@ -70,7 +69,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
             if (fromUnderlyingType is null || toUnderlyingType is null)
             {
                 LogLog.Warn("Failed to find underlying type for collection of property {0}", fromProperty.ShortName);
-                return;
+                return false;
             }
             
             // if both are classes
@@ -86,13 +85,12 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
                 if (!fromClassTypeInfo.HasValidModelInfo || !toClassTypeInfo.HasValidModelInfo)
                 {
                     LogLog.Warn("Failed to map underlying classes one to another for property `{0}`", fromProperty.ShortName);
-                    return;
+                    return false;
                 }
             
                 var classesMappingProcessor = new ClassesMappingProcessor(fromClassTypeInfo, toClassTypeInfo);
                 var internalLinqCodeMapping = classesMappingProcessor.BuildMappingCode();
-            
-
+                
                 if (!string.IsNullOrEmpty(internalLinqCodeMapping))
                 {
                     var toCollectionCastMethod = toCollectionType.Value.GetToCollectionLinqCast();
@@ -100,10 +98,14 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Models.SpecificTypeMappers
                         fromProperty.ShortName,
                         $"{fromClassVariableName} => new {toClassTypeInfo.FullClassTypeName}(){{{internalLinqCodeMapping}}}",
                         toCollectionCastMethod);
+                    return true;
                 }
+                
+                InternalFailedPropertiesContainer.Add(classesMappingProcessor.FailedToMapPropertiesContainer);
             }
 
             LogLog.Warn("By now it is not supported... (mapping of non-classes collections)");
+            return false;
         }
     }
 }

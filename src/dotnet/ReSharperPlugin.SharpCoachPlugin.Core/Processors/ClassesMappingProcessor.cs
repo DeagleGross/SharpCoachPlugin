@@ -1,6 +1,10 @@
+using System.Collections.Generic;
 using JetBrains.Collections;
 using JetBrains.Diagnostics;
+using JetBrains.ReSharper.Psi;
 using ReSharperPlugin.SharpCoachPlugin.Core.Builders;
+using ReSharperPlugin.SharpCoachPlugin.Core.Helpers;
+using ReSharperPlugin.SharpCoachPlugin.Core.Models.OperationResults;
 using ReSharperPlugin.SharpCoachPlugin.Core.Providers;
 using ReSharperPlugin.SharpCoachPlugin.Core.TypeHelpers;
 
@@ -12,24 +16,30 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
         
         private readonly ClassTypeInfoProvider _fromClassType;
         private readonly ClassTypeInfoProvider _toClassType;
+        
+        public MappingResultWrapper MappingResultWrapper { get; }
+
+        public FailedToMapPropertiesContainer FailedToMapPropertiesContainer => MappingResultWrapper.FailedToMapPropertiesContainer;
 
         public ClassesMappingProcessor(ClassTypeInfoProvider fromClassType, ClassTypeInfoProvider toClassType)
             : this(fromClassType, toClassType, fromClassType.VariableName)
         {
         }
-        
-        public ClassesMappingProcessor(ClassTypeInfoProvider fromClassType, ClassTypeInfoProvider toClassType, string variableName)
+
+        private ClassesMappingProcessor(ClassTypeInfoProvider fromClassType, ClassTypeInfoProvider toClassType, string variableName)
         {
             _fromClassType = fromClassType;
             _toClassType = toClassType;
-
+            
             _mappingCodeBuilder = new MappingCodeBuilder(variableName);
+            MappingResultWrapper = new MappingResultWrapper(fromClassType, toClassType);
         }
 
         public string BuildMappingCode()
         {
             var fromClassProperties = _fromClassType.GetPropertyNameInfoMap();
             var toClassProperties = _toClassType.GetPropertyNameInfoMap();
+            var processedPropertyNames = new HashSet<string>();
 
             // compares properties one by one and does the mapping
             foreach (var (toClassPropertyName, toClassProperty) in toClassProperties)
@@ -42,7 +52,8 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                     // the most simple case - properties have the same type
                     if (Equals(fromClassProperty.Type, toClassProperty.Type))
                     {
-                        _mappingCodeBuilder.AddPropertyBindingStandard(toClassPropertyName);   
+                        _mappingCodeBuilder.AddPropertyBindingStandard(toClassPropertyName);
+                        processedPropertyNames.Add(toClassPropertyName);
                     }
                     else
                     {
@@ -102,12 +113,33 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Processors
                             continue;
                         }
                         
-                        specificTypeMapper.MapToType(fromClassProperty, toClassProperty, toPropertyTypeKind.Value);
+                        var isSuccess = specificTypeMapper.TryMapToType(fromClassProperty, toClassProperty, toPropertyTypeKind.Value);
+                        if (isSuccess) processedPropertyNames.Add(toClassPropertyName);
+                        
+                        MappingResultWrapper.FailedToMapPropertiesContainer.Add(specificTypeMapper.InternalFailedPropertiesContainer);
                     }
                 }
             }
 
+            FillFailedToMapPropertiesInfo(fromClassProperties, toClassProperties, processedPropertyNames);
+
             return _mappingCodeBuilder.Result;
+        }
+
+        private void FillFailedToMapPropertiesInfo(
+            IReadOnlyDictionary<string, IProperty> fromClassProperties, 
+            IReadOnlyDictionary<string, IProperty> toClassProperties,
+            ICollection<string> processedPropertyNames)
+        {
+            foreach (var (propertyName, property) in fromClassProperties)
+            {
+                if (!processedPropertyNames.Contains(propertyName)) MappingResultWrapper.AddFailedToMapInputProperty(property.GetFullName());    
+            }
+            
+            foreach (var (propertyName, property) in toClassProperties)
+            {
+                if (!processedPropertyNames.Contains(propertyName)) MappingResultWrapper.AddFailedToMapOutputProperty(property.GetFullName());    
+            } 
         }
     }
 }

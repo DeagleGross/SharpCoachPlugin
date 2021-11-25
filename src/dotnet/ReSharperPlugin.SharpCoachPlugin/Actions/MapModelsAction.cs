@@ -4,11 +4,14 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.ContextActions;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.TextControl;
 using JetBrains.Util;
+using ReSharperPlugin.SharpCoachPlugin.Core.Components;
 using ReSharperPlugin.SharpCoachPlugin.Core.Helpers;
 using ReSharperPlugin.SharpCoachPlugin.Core.Processors;
 using ReSharperPlugin.SharpCoachPlugin.Core.Providers;
+using ReSharperPlugin.SharpCoachPlugin.Ui.ToolWindows;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Actions
 {
@@ -61,9 +64,9 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
 
             var methodMappingCode = _classesMappingProcessor.BuildMappingCode();
             var mappingMethodBody = EmbedMappingCodeToMethodBody(methodMappingCode);
-
             _methodDeclaration.SetCodeBody(mappingMethodBody);
 
+            ShowMapModelsToolWindow();
             return null;
         }
 
@@ -74,6 +77,15 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
 
             return factory.CreateStatement(string.Format(MethodReturnFormat, _toClassType.FullClassTypeName,
                 internalMappingCode));
+        }
+
+        private void ShowMapModelsToolWindow()
+        {
+            var mappingResultsProvider = Shell.Instance.GetComponent<MappingResultsStorage>();
+            mappingResultsProvider.Add(_classesMappingProcessor.MappingResultWrapper.MappingOperationResult);
+
+            // explicitly showing window only when operation is not successful
+            MapModelsLogsToolWindowUI.Show(mappingResultsProvider, _classesMappingProcessor.MappingResultWrapper.IsSuccessful);
         }
     }
 }

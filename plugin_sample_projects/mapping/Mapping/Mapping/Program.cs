@@ -20,14 +20,10 @@ namespace Mapping
     public class Request
     {
         public long Id { get; set; }
-        
-        public string Name { get; set; }
     }
 
     public class Response
     {
         public long Id { get; set; }
-        
-        public bool IsDeleted { get; set; }
     }
 }

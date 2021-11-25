@@ -16,11 +16,14 @@
   </description>
   
   <extensions defaultExtensionNs="com.intellij">
-    <applicationConfigurable groupId="language" instance="com.jetbrains.rider.plugins.coachsharp.CoachSharpOptionsPage" id="CoachSharpOptionsPage" />
+    <!-- options -->
+    <applicationConfigurable id="CoachSharpOptionsPage" 
+                             groupId="language" 
+                             instance="com.jetbrains.rider.plugins.coachsharp.options.CoachSharpOptionsPage"/>
   </extensions>
   
   <actions>
-    <action id="MapModelsAction" class="com.jetbrains.rider.plugins.coachsharp.MapModelsAction"
+    <action id="MapModelsAction" class="com.jetbrains.rider.plugins.coachsharp.actions.MapModelsAction"
             text="Map models internals" description="Map models internals"/>
   </actions>
 

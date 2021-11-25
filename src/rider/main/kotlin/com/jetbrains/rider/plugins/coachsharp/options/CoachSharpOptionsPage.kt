@@ -1,4 +1,4 @@
-﻿package com.jetbrains.rider.plugins.coachsharp
+﻿package com.jetbrains.rider.plugins.coachsharp.options
 
 import com.jetbrains.rider.settings.simple.SimpleOptionsPage
 

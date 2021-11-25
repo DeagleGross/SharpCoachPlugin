@@ -21,4 +21,8 @@
       <PackageReference Include="JetBrains.Psi.Features.Core" Version="211.0.20210722.92107" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ReSharperPlugin.SharpCoachPlugin.Core\ReSharperPlugin.SharpCoachPlugin.Core.csproj" />
+    </ItemGroup>
+
 </Project>

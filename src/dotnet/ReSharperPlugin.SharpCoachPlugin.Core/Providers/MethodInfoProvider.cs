@@ -19,9 +19,9 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
             get
             {
                 if (_methodDeclaration is null) return false;
-                if (_methodDeclaration.Params.FirstChild is null) return false;
-                return _methodDeclaration.Params.FirstChild.NextSibling is null && 
-                       _methodDeclaration.Params.FirstChild.PrevSibling is null;
+                if (_methodDeclaration.Params?.FirstChild is null) return false;
+                return _methodDeclaration.Params?.FirstChild?.NextSibling is null && 
+                       _methodDeclaration.Params?.FirstChild?.PrevSibling is null;
             }
         }
 

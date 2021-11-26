@@ -9,3 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## 1.0.7 
 - Extending supported Rider versions
+
+## 1.1.0
+- Added `Map Models Logs` tool window for making user experience much more friendly 

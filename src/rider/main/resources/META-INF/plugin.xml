@@ -3,7 +3,7 @@
   <name>CoachSharp</name>
   <version>1.1.0</version>
   <vendor url="https://github.com/DeagleGross/SharpCoachPlugin">deaglegross</vendor>
-  <idea-version since-build="211" until-build="211.*" />
+  <idea-version since-build="212" until-build="212.*" />
   <depends>com.intellij.modules.rider</depends>
 
   <description>

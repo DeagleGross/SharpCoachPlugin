@@ -3,15 +3,16 @@ import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
-    id 'org.jetbrains.intellij' version '1.1.4'     // https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id 'com.jetbrains.rdgen' version '0.211.235'    // https://www.myget.org/feed/rd-snapshots/package/maven/com.jetbrains.rd/rd-gen
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
+    id 'org.jetbrains.intellij' version '1.11.0'     // https://github.com/JetBrains/gradle-intellij-plugin/releases
+    id 'com.jetbrains.rdgen' version '2022.3.4'     // https://github.com/JetBrains/rd/releases
+    id 'me.filippov.gradle.jvm.wrapper' version '0.14.0'
 }
 
 ext {
     isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
     rdLibDirectory = {
-        new File(intellij.getIdeaDependency(project).classes, "lib/rd")
+        new File(setupDependencies.idea.get().classes, "lib/rd")
     }
 }
 
@@ -28,6 +29,10 @@ wrapper {
 
 version = ext.PluginVersion
 
+tasks.named("processResources") {
+    from("dependencies.json", { into "META-INF" })
+}
+
 sourceSets {
     main {
         java.srcDir 'src/rider/main/java'
@@ -37,7 +42,7 @@ sourceSets {
 }
 
 compileKotlin {
-    kotlinOptions { jvmTarget = "1.8" }
+    kotlinOptions { jvmTarget = "17" }
 }
 
 task setBuildTool {
@@ -72,6 +77,16 @@ task compileDotNet {
         exec {
             executable setBuildTool.executable
             args arguments
+            workingDir rootDir
+        }
+    }
+}
+
+task testDotNet {
+    doLast {
+        exec {
+            executable "dotnet"
+            args "test","${DotnetSolution}","--logger","GitHubActions"
             workingDir rootDir
         }
     }
@@ -128,7 +143,7 @@ runIde {
 rdgen {
     def modelDir = new File(rootDir, "protocol/src/main/kotlin/model")
     def csOutput = new File(rootDir, "src/dotnet/${DotnetPluginId}/Rider")
-    def ktOutput = new File(rootDir, "src/rider/main/kotlin/com/jetbrains/rider/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
+    def ktOutput = new File(rootDir, "src/rider/main/kotlin/${RiderPluginId.replace('.','/').toLowerCase()}")
 
     verbose = true
     classpath {
@@ -172,14 +187,7 @@ prepareSandbox {
     def dllFiles = [
             "$outputFolder/${DotnetPluginId}.dll",
             "$outputFolder/${DotnetPluginId}.pdb",
-            
-            // shared library for all logic
-            "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Core.dll",
-            "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Core.pdb",
-            
-            // shared library for UI support
-            "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Ui.dll",
-            "$outputFolder/ReSharperPlugin.SharpCoachPlugin.Ui.pdb",
+            // TODO: add additional assemblies
     ]
 
     dllFiles.forEach({ f ->
@@ -196,6 +204,7 @@ prepareSandbox {
 }
 
 publishPlugin {
+    dependsOn testDotNet
     dependsOn buildPlugin
     token = "${PublishToken}"
 

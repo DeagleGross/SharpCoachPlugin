@@ -69,7 +69,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Builders
         
         public void AddPropertyBindingForLinqSelect(string propertyName, string lambdaMappingCode, string castToCollectionMethod)
         {
-            _stringBuilder.AppendLine(@$"{propertyName} = {FromVariableName}.{propertyName}.Select({lambdaMappingCode}){castToCollectionMethod},");
+            _stringBuilder.AppendLine(@$"{propertyName} = {FromVariableName}.{propertyName}?.Select({lambdaMappingCode}){castToCollectionMethod},");
         }
     }
 }

@@ -18,6 +18,7 @@
     <Compile Include="test\src\Actions\MapClassInternalsTests.cs" />
     <Compile Include="test\src\Actions\MapCollectionInternalsTests.cs" />
     <Compile Include="test\src\Actions\MapEnumInternalsTests.cs" />
+    <Compile Include="test\src\Actions\LocalFunctionTest.cs" />
     <Compile Include="test\src\Actions\MapNumericInternalsTests.cs" />
     <Compile Include="test\src\Actions\MapStringInternalsTests.cs" />
     <None Include="test/**/*" />

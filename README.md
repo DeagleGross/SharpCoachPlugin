@@ -11,6 +11,9 @@ This is plugin with useful features for comfortable C# development using JetBrai
 ![Downloads](https://img.shields.io/jetbrains/plugin/d/17522)   
 ![Version](https://img.shields.io/jetbrains/plugin/v/17522)
 
+### Features Supported
+- [Generate Mapping code from type A to type B](./docs/features/Mapping.md)
+
 ### Build
 ```
 # For Rider
@@ -48,6 +51,7 @@ gradlew :publishPlugin -PPluginVersion=<version> -PPublishToken=<token>
 - branch `versions\2021.2` ->   *ProductVersion* = 2021.2, *build* = 212.*
 - branch `versions\2021.2.1` -> *ProductVersion* = 2021.2.1, *build* = 212.*
 - branch `versions\2021.2.2` -> *ProductVersion* = 2021.2.2, *build* = 212.*
+- branch `versions\2023.3` -> *ProductVersion* = 2023.3-SNAPSHOT, *build* = 221.*
 
 ### Contribution Info
 Feel free to take part in developing the project. 

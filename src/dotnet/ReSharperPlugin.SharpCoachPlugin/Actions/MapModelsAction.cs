@@ -8,9 +8,10 @@ using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.TextControl;
 using JetBrains.Util;
 using ReSharperPlugin.SharpCoachPlugin.Core.Components;
-using ReSharperPlugin.SharpCoachPlugin.Core.Helpers;
 using ReSharperPlugin.SharpCoachPlugin.Core.Processors;
 using ReSharperPlugin.SharpCoachPlugin.Core.Providers;
+using ReSharperPlugin.SharpCoachPlugin.Core.Providers.FunctionInfoProviders;
+using ReSharperPlugin.SharpCoachPlugin.Core.Providers.FunctionInfoProviders.Abstractions;
 using ReSharperPlugin.SharpCoachPlugin.Ui.ToolWindows;
 
 namespace ReSharperPlugin.SharpCoachPlugin.Actions
@@ -28,8 +29,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
 
         public override string Text => "Map internals of models";
 
-        private readonly IMethodDeclaration _methodDeclaration;
-        private readonly MethodInfoProvider _methodInfoProvider;
+        private readonly IFunctionInfoProvider _functionDeclaration;
 
         private ClassTypeInfoProvider _toClassType;
         private ClassTypeInfoProvider _fromClassType;
@@ -38,22 +38,21 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
 
         public MapModelsAction(LanguageIndependentContextActionDataProvider dataProvider)
         {
-            _methodDeclaration = dataProvider.GetSelectedElement<IMethodDeclaration>();
-            _methodInfoProvider = new MethodInfoProvider(_methodDeclaration);
+            _functionDeclaration = FunctionInfoProviderFactory.GetMatchingFunctionInfoProvider(dataProvider);
         }
 
         public override bool IsAvailable(IUserDataHolder cache)
         {
-            var methodHasSingleArgument = _methodInfoProvider.HasSingleArgument;
-            var methodReturnTypeIsOfReferenceType = _methodInfoProvider.ReturnsReferenceType;
+            var methodHasSingleArgument = _functionDeclaration.HasSingleArgument();
+            var methodReturnTypeIsOfReferenceType = _functionDeclaration.ReturnsReferenceType();
 
             if (!(methodHasSingleArgument && methodReturnTypeIsOfReferenceType))
             {
                 return false;
             }
 
-            _toClassType = _methodInfoProvider.GetReturnTypeDeclaration();
-            _fromClassType = _methodInfoProvider.GetArgumentTypeDeclaration(0);
+            _toClassType = _functionDeclaration.GetReturnTypeDeclaration();
+            _fromClassType = _functionDeclaration.GetArgumentTypeDeclaration(0);
 
             return _toClassType.HasValidModelInfo && _fromClassType.HasValidModelInfo;
         }
@@ -64,7 +63,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
 
             var methodMappingCode = _classesMappingProcessor.BuildMappingCode();
             var mappingMethodBody = EmbedMappingCodeToMethodBody(methodMappingCode);
-            _methodDeclaration.SetCodeBody(mappingMethodBody);
+            _functionDeclaration.CSharpDeclaration.SetCodeBody(mappingMethodBody);
 
             ShowMapModelsToolWindow();
             return null;
@@ -72,7 +71,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
 
         private ICSharpStatement EmbedMappingCodeToMethodBody(string internalMappingCode)
         {
-            var methodBody = _methodDeclaration.Body ?? _methodDeclaration.GetEmptyMethodBody();
+            var methodBody = _functionDeclaration.GetMethodBody();
             var factory = CSharpElementFactory.GetInstance(methodBody);
 
             return factory.CreateStatement(string.Format(MethodReturnFormat, _toClassType.FullClassTypeName,

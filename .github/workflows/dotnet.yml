@@ -30,4 +30,4 @@ jobs:
       run: msbuild ReSharperPlugin.SharpCoachPlugin.sln
       
     - name: Run Tests
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test ReSharperPlugin.SharpCoachPlugin.sln --no-restore --verbosity normal

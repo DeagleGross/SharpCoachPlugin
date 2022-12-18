@@ -29,8 +29,14 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers.FunctionInfoProviders.
 
         public ClassTypeInfoProvider GetArgumentTypeDeclaration(int index)
         {
-            var argument = ParameterList.FindNodeAt(new TreeTextRange(new TreeOffset(index)));
-            var argumentReferenceName = argument?.Parent as IReferenceName;
+            /* Structure:
+             * - IndexedArgument is a RegularParameterDeclaration
+             *   - FirstChild is UserTypeUsage
+             *     - FirstChild is ReferenceName, containing IDENTIFIER over user fully qualified user type 
+             */
+            
+            var indexedArgument = ParameterList.Children().ElementAt(index);
+            var argumentReferenceName = indexedArgument.FirstChild?.FirstChild as IReferenceName;
 
             var classDeclaration = argumentReferenceName?.Reference.Resolve();
             var parameter = ParameterList.Children().ElementAt(index) as IParameterDeclaration;

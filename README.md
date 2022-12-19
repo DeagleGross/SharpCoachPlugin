@@ -1,7 +1,5 @@
 # SharpCoachPlugin for Rider and ReSharper
-
-This is plugin with useful features for comfortable C# development using JetBrains Rider IDE including:
-- one-click code generation of mapping classes fields and properties one to another
+This is plugin with useful features for comfortable C# development using JetBrains Rider IDE
 
 ### Build status
 [![CI](https://github.com/DeagleGross/SharpCoachPlugin/actions/workflows/dotnet.yml/badge.svg)](https://github.com/DeagleGross/SharpCoachPlugin/actions/workflows/dotnet.yml)

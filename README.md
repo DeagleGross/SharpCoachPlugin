@@ -18,7 +18,7 @@ This is plugin with useful features for comfortable C# development using JetBrai
 *shout-out to AliExpress colleagues :)*
 
 JetBrains plugins publishing system is *... hard*   
-To help identify missing published versions, please, help me by [submitting an issue](https://github.com/DeagleGross/SharpCoachPlugin/issues/new?template=plugin-not-compatible-with-rider.md)  
+To help identify missing published versions, please, help me by [submitting an issue](https://github.com/DeagleGross/SharpCoachPlugin/issues/new?assignees=DeagleGross&labels=rider-version-compatibility&template=plugin-not-compatible-with-rider.md&title=Plugin+not+compatible+with+Rider+%3Cinsert-version-here%3E)  
 I would be **very grateful** if you can create a PR by changing a couple of files, and help me publish new versions faster.
 
 ### Build

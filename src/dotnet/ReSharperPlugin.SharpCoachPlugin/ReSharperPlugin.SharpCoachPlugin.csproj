@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>deaglegross.SharpCoachPlugin</PackageId>
-    <Version>1.0.8</Version>
+    <Version>1.2.0</Version>
     <Authors>deaglegross</Authors>
     <Company>deaglegross</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

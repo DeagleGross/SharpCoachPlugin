@@ -1,9 +1,9 @@
 ---
 name: Plugin not compatible with Rider
 about: Create a report to know, which version is not supported
-title: ''
-labels: ''
-assignees: ''
+title: 'Plugin not compatible with Rider <insert-version-here>'
+labels: 'rider-version-compatibility'
+assignees: 'DeagleGross'
 
 ---
 **Please complete the following information:**

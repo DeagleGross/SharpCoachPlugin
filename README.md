@@ -14,6 +14,13 @@ This is plugin with useful features for comfortable C# development using JetBrai
 ### Features Supported
 - [Generate Mapping code from type A to type B](./docs/features/Mapping.md)
 
+### You cannot install plugin in your Rider? 
+*shout-out to AliExpress colleagues :)*
+
+JetBrains plugins publishing system is *... hard*   
+To help identify missing published versions, please, help me by [submitting an issue](https://github.com/DeagleGross/SharpCoachPlugin/issues/new?template=plugin-not-compatible-with-rider.md)  
+I would be **very grateful** if you can create a PR by changing a couple of files, and help me publish new versions faster.
+
 ### Build
 ```
 # For Rider

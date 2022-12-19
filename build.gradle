@@ -82,16 +82,6 @@ task compileDotNet {
     }
 }
 
-task testDotNet {
-    doLast {
-        exec {
-            executable "dotnet"
-            args "test","${DotnetSolution}","--logger","GitHubActions"
-            workingDir rootDir
-        }
-    }
-}
-
 buildPlugin {
     doLast {
         copy {
@@ -211,7 +201,6 @@ prepareSandbox {
 }
 
 publishPlugin {
-    dependsOn testDotNet
     dependsOn buildPlugin
     token = "${PublishToken}"
 

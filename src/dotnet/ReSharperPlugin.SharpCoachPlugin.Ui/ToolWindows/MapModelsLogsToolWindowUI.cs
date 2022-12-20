@@ -67,13 +67,16 @@ namespace ReSharperPlugin.SharpCoachPlugin.Ui.ToolWindows
                 if (mappingResult.FailedToMapPropertiesContainer.FromClassPropertyNames.IsNullOrEmpty() && mappingResult.FailedToMapPropertiesContainer.ToClassPropertyNames.IsNullOrEmpty())
                 {
                     // if all went well - just show a success message
-                    var successLabel = "Successful mapping operation".GetBeLabel().WithColor(Color.ForestGreen);
+                    var successLabel = "Successful mapping operation".GetBeLabel();
+                        // TODO fix System.MissingMethodException: Method not found jetbrains.platform.ide
+                        // .WithColor(Color.Green);
                     operationGrid.AddElement(successLabel);
                 }
                 else
                 {
                     // If errors occured while mapping - drawing an errors properties table
-                    var unsuccessfulLabel = "Unsuccessful mapping!".GetBeLabel().WithColor(Color.DarkRed);
+                    var unsuccessfulLabel = "Unsuccessful mapping!".GetBeLabel();
+                        // TODO resolve dll .WithColor(Color.DarkRed);
                     var tableInfoLabel = "Here is a table of failed to map properties".GetBeLabel();
                     operationGrid.AddElement(unsuccessfulLabel);
                     operationGrid.AddElement(tableInfoLabel);

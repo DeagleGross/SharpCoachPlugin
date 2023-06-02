@@ -76,8 +76,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
             var methodBody = _functionDeclaration.GetMethodBody();
             var factory = CSharpElementFactory.GetInstance(methodBody);
 
-            return factory.CreateStatement(string.Format(MethodReturnFormat, _toClassType.FullClassTypeName,
-                internalMappingCode));
+            return factory.CreateStatement(string.Format(MethodReturnFormat, _toClassType.TypeUsage, internalMappingCode));
         }
 
         private void ShowMapModelsToolWindow()

@@ -6,8 +6,13 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
 {
     public class ClassTypeInfoProvider
     {
+        /// <summary>
+        /// Originally used type expression in user code
+        /// </summary>
+        private readonly string _typeUsage;
         private readonly IClass _classInfo;
 
+        public string TypeUsage => !string.IsNullOrEmpty(_typeUsage) ? _typeUsage : FullClassTypeName;
         public string VariableName { get; }
 
         public bool HasValidModelInfo => _classInfo is not null;
@@ -27,9 +32,13 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers
             }   
         }
 
-        public ClassTypeInfoProvider(IClass classInfo, string variableName = null)
+        public ClassTypeInfoProvider(
+            IClass classInfo,
+            string variableName = null,
+            string typeUsage = null)
         {
             _classInfo = classInfo;
+            _typeUsage = typeUsage;
             VariableName = !string.IsNullOrEmpty(variableName) ? variableName : string.Empty;
         }
 

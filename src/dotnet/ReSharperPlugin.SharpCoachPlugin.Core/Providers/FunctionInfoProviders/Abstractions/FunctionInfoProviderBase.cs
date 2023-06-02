@@ -23,7 +23,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers.FunctionInfoProviders.
             var classDeclaration = returnTypeReference?.Reference.Resolve();
             
             return classDeclaration?.IsValid() == true 
-                ? new ClassTypeInfoProvider(classDeclaration.DeclaredElement as IClass) 
+                ? new ClassTypeInfoProvider(classInfo: classDeclaration.DeclaredElement as IClass, typeUsage: returnTypeReference.QualifiedName) 
                 : new ClassTypeInfoProvider(null);
         }
 
@@ -42,7 +42,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers.FunctionInfoProviders.
             var parameter = ParameterList.Children().ElementAt(index) as IParameterDeclaration;
             
             return classDeclaration?.IsValid() == true 
-                ? new ClassTypeInfoProvider(classDeclaration.DeclaredElement as IClass, parameter?.DeclaredName) 
+                ? new ClassTypeInfoProvider(classInfo: classDeclaration.DeclaredElement as IClass, variableName: parameter?.DeclaredName, typeUsage: argumentReferenceName.QualifiedName) 
                 : new ClassTypeInfoProvider(null, parameter?.DeclaredName);
         }
     }

@@ -44,7 +44,8 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
         public override bool IsAvailable(IUserDataHolder cache)
         {
             if (_functionDeclaration is null) return false;
-        
+            if (!_functionDeclaration.IsEmpty()) return false;
+            
             var methodHasSingleArgument = _functionDeclaration.HasSingleArgument();
             var methodReturnTypeIsOfReferenceType = _functionDeclaration.ReturnsReferenceType();
 

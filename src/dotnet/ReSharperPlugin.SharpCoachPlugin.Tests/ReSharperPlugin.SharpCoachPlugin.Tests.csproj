@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Compile Remove="test/**/*" />
+    <Compile Include="test\src\Actions\ExtensionMethodTests.cs" />
     <Compile Include="test\src\Actions\FullModelNameTests.cs" />
     <Compile Include="test\src\Actions\MapClassInternalsTests.cs" />
     <Compile Include="test\src\Actions\MapCollectionInternalsTests.cs" />

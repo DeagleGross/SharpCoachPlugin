@@ -15,8 +15,6 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers.FunctionInfoProviders.
         
         public abstract bool HasSingleArgument();
         public abstract bool ReturnsReferenceType();
-        public abstract bool IsEmpty();
-        
         public abstract IBlock GetMethodBody();
 
         public ClassTypeInfoProvider GetReturnTypeDeclaration()

@@ -4,8 +4,9 @@ namespace Library.Models.Mapping
 {
     public class ExtensionMethodTest
     {
-        static UserResponse ToResponse{caret}(UserRequest request)
+        static UserResponse ToResponse(UserRequest request)
         {
+            {caret}
             int a = 1;
             if (a == 1) { Console.WriteLine("hello"); }
             return new UserResponse();

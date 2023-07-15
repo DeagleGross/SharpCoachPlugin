@@ -11,10 +11,11 @@ namespace Mapping
             Console.WriteLine("Hello World!");
         }
 
-        private Response Convert(Request request)
+        private Response Convert(Request e)
         {
-            return new Response() {Id = request.Id};
+            return new Response() {Id = e.Id};
         }
+
     }
 
     public class Request

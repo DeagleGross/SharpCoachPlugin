@@ -29,6 +29,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
 
         public override string Text => "Map internals of models";
 
+        private readonly CaretProvider _caretProvider; 
         private readonly IFunctionInfoProvider _functionDeclaration;
 
         private ClassTypeInfoProvider _toClassType;
@@ -39,13 +40,14 @@ namespace ReSharperPlugin.SharpCoachPlugin.Actions
         public MapModelsAction(LanguageIndependentContextActionDataProvider dataProvider)
         {
             _functionDeclaration = FunctionInfoProviderFactory.GetMatchingFunctionInfoProvider(dataProvider);
+            _caretProvider = new CaretProvider(dataProvider);
         }
 
         public override bool IsAvailable(IUserDataHolder cache)
         {
             if (_functionDeclaration is null) return false;
-            if (!_functionDeclaration.IsEmpty()) return false;
-            
+            if (!_caretProvider.PointsMethodName(_functionDeclaration)) return false;
+
             var methodHasSingleArgument = _functionDeclaration.HasSingleArgument();
             var methodReturnTypeIsOfReferenceType = _functionDeclaration.ReturnsReferenceType();
 

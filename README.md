@@ -59,6 +59,7 @@ gradlew :publishPlugin -PPluginVersion=<version> -PPublishToken=<token>
 - branch `versions\2021.2.1` -> *ProductVersion* = 2021.2.1, *build* = 212.*
 - branch `versions\2021.2.2` -> *ProductVersion* = 2021.2.2, *build* = 212.*
 - branch `versions\2023.3-223build` -> *ProductVersion* = 2023.3-SNAPSHOT, *build* = 223.*
+- branch `versions\2023.1` -> *ProductVersion* = 2023.1, *build* = 231.*
 
 ### Contribution Info
 Feel free to take part in developing the project. 

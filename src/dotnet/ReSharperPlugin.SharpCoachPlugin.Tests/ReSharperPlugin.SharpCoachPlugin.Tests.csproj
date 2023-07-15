@@ -23,6 +23,7 @@
     <Compile Include="test\src\Actions\LocalFunctionTest.cs" />
     <Compile Include="test\src\Actions\MapNumericInternalsTests.cs" />
     <Compile Include="test\src\Actions\MapStringInternalsTests.cs" />
+    <Compile Include="test\src\Actions\NonEmptyMethodTests.cs" />
     <None Include="test/**/*" />
   </ItemGroup>
 

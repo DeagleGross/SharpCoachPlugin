@@ -34,6 +34,5 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers.FunctionInfoProviders
             _functionDeclaration.Type.Classify == TypeClassification.REFERENCE_TYPE;
 
         public override IBlock GetMethodBody() => _functionDeclaration.Body ?? _functionDeclaration.GetEmptyMethodBody();
-        public override bool IsEmpty() => _functionDeclaration.Body.Statements.IsEmpty;
     }
 }

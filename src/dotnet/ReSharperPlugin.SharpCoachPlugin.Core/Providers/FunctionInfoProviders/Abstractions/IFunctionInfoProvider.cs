@@ -4,9 +4,6 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers.FunctionInfoProviders.
 {
     public interface IFunctionInfoProvider
     {
-        /// <returns>true, if method implementation does not contain any code except whitespaces symbols</returns>
-        bool IsEmpty();
-        
         IBlock GetMethodBody();
         
         ICSharpDeclaration CSharpDeclaration { get; }

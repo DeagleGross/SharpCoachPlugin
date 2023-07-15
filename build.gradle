@@ -168,10 +168,6 @@ patchPluginXml {
     changeNotes = changelogMatches.collect {
         it[1].replaceAll(/(?s)\r?\n/, "<br />\n")
     }.take(1).join('')
-    
-    // workaround for 2022.3 because of broken SDK
-    sinceBuild.set('223.0')
-    untilBuild.set('223.*')
 }
 
 prepareSandbox {

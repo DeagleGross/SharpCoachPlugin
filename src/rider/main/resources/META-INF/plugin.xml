@@ -1,7 +1,7 @@
 <idea-plugin require-restart="true">
   <id>deaglegross.coachsharp</id>
   <name>CoachSharp</name>
-  <version>1.2.4</version>
+  <version>1.3.0</version>
   <vendor url="https://github.com/DeagleGross/SharpCoachPlugin">deaglegross</vendor>
   <depends>com.intellij.modules.rider</depends>
 
@@ -12,7 +12,7 @@
     }
   -->
   <!-- !Dont forget to remove workaround for 2023.3 build from build.gradle! -->
-  <idea-version since-build="223" until-build="223.*" />
+  <idea-version since-build="231" until-build="231.*" />
 
   <description>
 <![CDATA[

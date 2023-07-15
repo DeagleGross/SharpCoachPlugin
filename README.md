@@ -41,6 +41,8 @@ When `main` is merged in some specific branch, execute this command for publishi
 **It is not needed** to explicitly change `plugin_version` when publishing plugin using this command, because it is automatically replaced with an command line argument 
 
 ##### Versioning
+[View JetBrains Rider ProductVersion & BuildNumbers](https://www.jetbrains.com/rider/download/other.html)
+
 - *Major version* is updated when some serious features are released
 - *Minor version* is updated on every new version publish
 - *Hotfix version* is changed for every compatibility different version of plugin. (I.e. `1.0.1` supports `2021.1.3` ProductVersion and `1.0.2` supports `2021.1.5` ProductVersion)

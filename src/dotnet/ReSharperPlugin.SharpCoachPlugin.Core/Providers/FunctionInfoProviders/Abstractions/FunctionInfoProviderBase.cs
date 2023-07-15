@@ -36,7 +36,8 @@ namespace ReSharperPlugin.SharpCoachPlugin.Core.Providers.FunctionInfoProviders.
              */
             
             var indexedArgument = ParameterList.Children().ElementAt(index);
-            var argumentReferenceName = indexedArgument.FirstChild?.FirstChild as IReferenceName;
+            var userTypeUsage = indexedArgument.Children().FirstOrDefault(x => x is IUserTypeUsage);
+            var argumentReferenceName = userTypeUsage?.FirstChild as IReferenceName;
 
             var classDeclaration = argumentReferenceName?.Reference.Resolve();
             var parameter = ParameterList.Children().ElementAt(index) as IParameterDeclaration;

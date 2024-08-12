@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>deaglegross.SharpCoachPlugin</PackageId>
-    <Version>1.3.1</Version>
+    <Version>1.4.1</Version>
     <Authors>deaglegross</Authors>
     <Company>deaglegross</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.ReSharper.SDK" Version="$(SdkVersion)" PrivateAssets="all" />
-    <PackageReference Include="JetBrains.ReSharperAutomationTools.src.ReSharperHost" Version="211.0.20210722.100041" />
     <!-- TODO: https://github.com/NuGet/Home/issues/7154 -->
     <PackageReference Include="Wave" Version="[$(WaveVersion),$(UpperWaveVersion))" />
   </ItemGroup>

@@ -3,9 +3,9 @@ import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
-    id 'org.jetbrains.intellij' version '1.11.0'     // https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id 'com.jetbrains.rdgen' version '2022.3.4'     // https://github.com/JetBrains/rd/releases
+    id 'org.jetbrains.kotlin.jvm' version '2.0.10'
+    id 'org.jetbrains.intellij' version '1.17.4'     // https://github.com/JetBrains/gradle-intellij-plugin/releases
+    id 'com.jetbrains.rdgen' version '2024.1.1'     // https://github.com/JetBrains/rd/releases
     id 'me.filippov.gradle.jvm.wrapper' version '0.14.0'
 }
 
@@ -22,7 +22,7 @@ repositories {
 }
 
 wrapper {
-    gradleVersion = '7.1'
+    gradleVersion = '8.8'
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
@@ -42,7 +42,7 @@ sourceSets {
 }
 
 compileKotlin {
-    kotlinOptions { jvmTarget = "17" }
+    kotlinOptions { jvmTarget = "22" }
 }
 
 task setBuildTool {

@@ -17,7 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Platform.Core.Shell" Version="211.0.20210716.95744" />
     <PackageReference Include="JetBrains.Rider.SDK" Version="$(SdkVersion)" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>

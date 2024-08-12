@@ -4,7 +4,7 @@ public class MapClassToClassActionTest
 {
     public static UserResponse ToResponse{caret}(UserRequest request)
     {
-      return new UserResponse() {UserDto = new UserResponse.User() {Id = request.UserDto.Id, Name = request.UserDto.Name}};
+      return new UserResponse() { UserDto = new UserResponse.User() { Id = request.UserDto.Id, Name = request.UserDto.Name } };
     }
 }
 

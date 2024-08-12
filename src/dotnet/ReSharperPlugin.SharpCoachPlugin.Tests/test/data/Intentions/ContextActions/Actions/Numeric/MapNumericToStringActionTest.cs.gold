@@ -4,7 +4,7 @@ public class MapNumericToStringActionTest
 {
     public static UserResponse ToResponse{caret}(UserRequest request)
     {
-      return new UserResponse() {Age = request.Age.ToString()};
+      return new UserResponse() { Age = request.Age.ToString() };
     }
 }
 

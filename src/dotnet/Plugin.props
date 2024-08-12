@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <SdkVersion>2021.1.5</SdkVersion>
+    <SdkVersion>2024.1.5</SdkVersion>
 
     <Title>CoachSharp</Title>
     <Description>Useful features for C# development</Description>

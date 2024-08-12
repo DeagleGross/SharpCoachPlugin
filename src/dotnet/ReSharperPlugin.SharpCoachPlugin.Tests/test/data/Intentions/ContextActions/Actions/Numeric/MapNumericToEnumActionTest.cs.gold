@@ -4,7 +4,7 @@ public class MapNumericToEnumActionTest
 {
     public static UserResponse ToResponse{caret}(UserRequest request)
     {
-      return new UserResponse() {AgeType = (UserResponse.Age) request.AgeType};
+      return new UserResponse() { AgeType = (UserResponse.Age)request.AgeType };
     }
 }
 

@@ -4,7 +4,7 @@ public class TestMapSameTypeAndNameProperties
 {
     public static UserResponse ToResponse{caret}(UserRequest request)
     {
-      return new UserResponse() {Id = request.Id, Name = request.Name, IsActive = request.IsActive, StockIds = request.StockIds};
+      return new UserResponse() { Id = request.Id, Name = request.Name, IsActive = request.IsActive, StockIds = request.StockIds };
     }
 }
 

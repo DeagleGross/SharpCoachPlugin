@@ -4,7 +4,7 @@ public class MapStringToEnumActionTest
 {
     public static UserResponse ToResponse{caret}(UserRequest request)
     {
-      return new UserResponse() {AgeType = Enum.TryParse<UserResponse.Age>(request.AgeType, out var tmpCastedValue) ? tmpCastedValue : default};
+      return new UserResponse() { AgeType = Enum.TryParse<UserResponse.Age>(request.AgeType, out var tmpCastedValue) ? tmpCastedValue : default };
     }
 }
 

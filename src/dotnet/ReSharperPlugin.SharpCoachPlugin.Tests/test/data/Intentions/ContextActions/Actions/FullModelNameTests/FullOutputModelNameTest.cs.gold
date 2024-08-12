@@ -6,7 +6,7 @@ namespace Library.Models.Mapping
     {
         static Library.Models.Mapping.UserResponse ToResponse{caret}(UserRequest request)
         {
-          return new Library.Models.Mapping.UserResponse() {Prop = request.Prop};
+          return new Library.Models.Mapping.UserResponse() { Prop = request.Prop };
         }
     }
 

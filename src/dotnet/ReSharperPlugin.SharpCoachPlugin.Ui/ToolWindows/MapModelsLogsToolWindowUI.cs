@@ -88,7 +88,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Ui.ToolWindows
                     inputPropertiesGrid.AddElement("Input class properties".GetBeLabel().WithCustomTextSize(BeFontSize.BIGGER));
                     foreach (var errorInputProperty in mappingResult.FailedToMapPropertiesContainer.FromClassPropertyNames)
                     {
-                        var propertyNameText = BeControls.GetTextControl(errorInputProperty).InBorder(BeShowBorders.All);
+                        var propertyNameText = BeControls.GetTextControl(errorInputProperty).WithLineBorder(BeShowBorders.All);
                         inputPropertiesGrid.AddElement(propertyNameText);
                     }
                 
@@ -97,7 +97,7 @@ namespace ReSharperPlugin.SharpCoachPlugin.Ui.ToolWindows
                     outputPropertiesGrid.AddElement("Output class properties".GetBeLabel().WithCustomTextSize(BeFontSize.BIGGER));
                     foreach (var errorOutputProperty in mappingResult.FailedToMapPropertiesContainer.ToClassPropertyNames)
                     {
-                        var propertyNameText = BeControls.GetTextControl(errorOutputProperty).InBorder(BeShowBorders.All);
+                        var propertyNameText = BeControls.GetTextControl(errorOutputProperty).WithLineBorder(BeShowBorders.All);
                         outputPropertiesGrid.AddElement(propertyNameText);
                     }
 
